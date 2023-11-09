@@ -16,7 +16,7 @@
                     <div class="footer__widget">
                         <h6>Shopping</h6>
                         <ul>
-                            <li><a href="#">Clothing Store</a></li>
+                            <li><a href="./trang-chu?page=shop">Clothing Store</a></li>
                             <li><a href="#">Trending Shoes</a></li>
                             <li><a href="#">Accessories</a></li>
                             <li><a href="#">Sale</a></li>
@@ -27,7 +27,7 @@
                     <div class="footer__widget">
                         <h6>Shopping</h6>
                         <ul>
-                            <li><a href="./trang-chu?page=contact">Contact Us</a></li>
+                            <li><a href="./trang-chu?page=contacts">Contact Us</a></li>
                             <li><a href="#">Payment Methods</a></li>
                             <li><a href="#">Delivary</a></li>
                             <li><a href="#">Return & Exchanges</a></li>
@@ -51,7 +51,7 @@
                 <div class="col-lg-12 text-center">
                     <div class="footer__copyright__text">
                         <!-- Link back to Colorlib can't be removed. Template is licensed under CC BY 3.0. -->
-                        <p>Copyright ©
+                        <p>Copyright Â©
                             <script>
                                 document.write(new Date().getFullYear());
                             </script>2020
@@ -76,7 +76,9 @@
         </div>
     </div>
     <!-- Search End -->
-
+<div id="backtotop" class="align-items-center justify-content-center">
+<i class="arrow_up"></i>
+</div>
     <!-- Js Plugins -->
     <script src="js/shop/jquery-3.3.1.min.js"></script>
     <script src="js/shop/bootstrap.min.js"></script>
@@ -88,7 +90,8 @@
     <script src="js/shop/mixitup.min.js"></script>
     <script src="js/shop/owl.carousel.min.js"></script>
     <script src="js/shop/main.js"></script>
-    <<script src="js/js_click/js_click__.js"></script>
+    <script src="js/js_click/click__.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </body>
 
 </html>

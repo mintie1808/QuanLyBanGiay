@@ -8,6 +8,9 @@
 		<c:when test="${page == 'content_body'}">
 			<jsp:include page="Ql_shop/content-body.jsp" />
 		</c:when>
+		<c:when test="${page == 'user_management'}">
+			<jsp:include page="Ql_shop/UserManagement.jsp" />
+		</c:when>
 		<c:otherwise>
 			<jsp:include page="Ql_shop/index.jsp" />
 		</c:otherwise>

@@ -1,6 +1,16 @@
 package doan.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Supplier__tb")
 public class SupplierModel {
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int SupplierID;
 	private String SupplierName;
 	private String Address;

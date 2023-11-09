@@ -1,13 +1,58 @@
 package doan.model;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "User__tb")
 public class Usermodel {
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String Username;
 	private String Password;
-	private String Role;
 	private String Email;
-	private String Phone;
+	private int Role;
+	private String Fullname;
 	private String Address;
+	private int Phone;
+	private String img;
+	private String status;
+	
+	public int getPhone() {
+		return Phone;
+	}
+
+	public void setPhone(int phone) {
+		Phone = phone;
+	}
+
+	public String getImg() {
+		return img;
+	}
+
+	public void setImg(String img) {
+		this.img = img;
+	}
+
+	public String getStatus() {
+		return status;
+	}
+
+	public void setStatus(String status) {
+		this.status = status;
+	}
+
+	public String getFullname() {
+		return Fullname;
+	}
+
+	public void setFullname(String fullname) {
+		Fullname = fullname;
+	}
 
 	public int getId() {
 		return id;
@@ -33,11 +78,11 @@ public class Usermodel {
 		Password = password;
 	}
 
-	public String getRole() {
+	public int getRole() {
 		return Role;
 	}
 
-	public void setRole(String role) {
+	public void setRole(int role) {
 		Role = role;
 	}
 
@@ -47,14 +92,6 @@ public class Usermodel {
 
 	public void setEmail(String email) {
 		Email = email;
-	}
-
-	public String getPhone() {
-		return Phone;
-	}
-
-	public void setPhone(String phone) {
-		Phone = phone;
 	}
 
 	public String getAddress() {

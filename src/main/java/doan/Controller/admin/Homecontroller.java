@@ -7,6 +7,10 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
+
+import doan.DAO.UserDAO;
+import doan.model.Usermodel;
 
 /**
  * Servlet implementation class Homecontroller
@@ -33,10 +37,11 @@ public class Homecontroller extends HttpServlet {
 		if (pageParam != null) {
 			// Lưu trang vào thuộc tính request
 			request.setAttribute("page", pageParam);
-
 			// Chuyển hướng đến trang home.jsp
-
 		}
+		UserDAO udao = new UserDAO();
+		List<Usermodel> lsuser = udao.findAll();
+		request.setAttribute("listUser", lsuser);
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/home.jsp");
 		rd.forward(request, response);
 	}

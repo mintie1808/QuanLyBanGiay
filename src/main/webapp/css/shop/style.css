@@ -29,6 +29,9 @@
 /*----------------------------------------*/
 /* Template default CSS
 /*----------------------------------------*/
+.not_href{
+cursor: pointer;
+}
 html, body {
 	height: 100%;
 	font-family: "Nunito Sans", sans-serif;

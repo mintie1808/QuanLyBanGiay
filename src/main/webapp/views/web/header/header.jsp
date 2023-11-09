@@ -26,9 +26,11 @@
 <link rel="stylesheet" href="css/shop/owl.carousel.min.css" type="text/css">
 <link rel="stylesheet" href="css/shop/slicknav.min.css" type="text/css">
 <link rel="stylesheet" href="css/shop/style.css" type="text/css">
+<link rel="stylesheet" href="css/shop/css__.css" type="text/css">
 </head>
 
 <body>
+
 	<!-- Page Preloder -->
 	<div id="preloder">
 		<div class="loader"></div>
@@ -39,7 +41,7 @@
 	<div class="offcanvas-menu-wrapper">
 		<div class="offcanvas__option">
 			<div class="offcanvas__links">
-				<a href="#">Sign in</a> <a href="#">FAQs</a>
+				<a href="./trang-chu?page=login">Sign in</a> <a href="#">FAQs</a>
 			</div>
 			<div class="offcanvas__top__hover">
 				<span>Usd <i class="arrow_carrot-down"></i></span>
@@ -76,7 +78,7 @@
 					<div class="col-lg-6 col-md-5">
 						<div class="header__top__right">
 							<div class="header__top__links">
-								<a href="#">Sign in</a> <a href="#">FAQs</a>
+								<a href="./trang-chu?page=login">Sign in</a> <a href="#">FAQs</a>
 							</div>
 							<div class="header__top__hover">
 								<span>Usd <i class="arrow_carrot-down"></i></span>
@@ -103,16 +105,16 @@
 						<ul>
 							<!-- class="active" --><li><a href="./trang-chu">Home</a></li>
 							<li><a href="./trang-chu?page=shop">Shop</a></li>
-							<li><a href="#">Pages</a>
+							<li><a class="not_href">Pages</a>
 								<ul class="dropdown">
 									<li><a href="./trang-chu?page=about">About Us</a></li>
 									<li><a href="./trang-chu?page=shop_details">Shop Details</a></li>
 									<li><a href="./trang-chu?page=shopping_cart">Shopping Cart</a></li>
-									<li><a href="./trang-chu?page=checkout">Check Out</a></li>
+									<li><a href="./trang-chu?page=check_out">Check Out</a></li>
 									<li><a href="./trang-chu?page=blog_details">Blog Details</a></li>
 								</ul></li>
 							<li><a href="./trang-chu?page=blog">Blog</a></li>
-							<li><a href="./trang-chu?page=contact">Contacts</a></li>
+							<li><a href="./trang-chu?page=contacts">Contacts</a></li>
 						</ul>
 					</nav>
 				</div>

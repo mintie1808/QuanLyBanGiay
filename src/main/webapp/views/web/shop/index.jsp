@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- Hero Section Begin -->
+<h1>${message }</h1>
 <section class="hero">
 	<div class="hero__slider owl-carousel">
 		<div class="hero__items set-bg" data-setbg="img/shop/hero/hero-1.jpg">

@@ -17,21 +17,25 @@
 		<c:when test="${page == 'shopping_cart'}">
 			<jsp:include page="shop/shopping-cart.jsp" />
 		</c:when>
-		<c:when test="${page == 'checkout'}">
+		<c:when test="${page == 'check_out'}">
 			<jsp:include page="shop/checkout.jsp" />
 		</c:when>
 		<c:when test="${page == 'blog_details'}">
 			<jsp:include page="shop/blog-details.jsp" />
 		</c:when>
-		<c:when test="${page == 'contact'}">
+		<c:when test="${page == 'contacts'}">
 			<jsp:include page="shop/contact.jsp" />
 		</c:when>
 		<c:when test="${page == 'blog'}">
 			<jsp:include page="shop/blog.jsp" />
+		</c:when>
+		<c:when test="${page == 'login'}">
+            <jsp:include page="shop/login.jsp" /> 
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="shop/index.jsp" />
 		</c:otherwise>
 	</c:choose>
 </div>
+
 <jsp:include page="/views/web/footer/footer.jsp" />
