@@ -1,0 +1,34 @@
+@charset "UTF-8";
+
+.class_img {
+	border-radius: 50%;
+	box-shadow: 0px 0px 20px 0px rgba(0, 0, 0, 0.1);
+	border: 3px solid #fff;
+	background: #fff;
+}
+
+.btn_logout {
+	border: none;
+	transition: all 0.4s ease-in-out;
+	color: #76838f;
+	background: #fff;
+}
+
+.dropdown-profile li .f_logout i {
+	margin-right: 0.3125rem;
+	font-size: 0.95rem;
+	position: relative;
+	top: 2px;
+	color: #333;
+}
+
+.f_logout:hover, .f_logout .btn_logout:hover {
+	cursor: pointer;
+	color: #2e28f6;
+}
+button:focus {
+    outline: none;
+}
+
+
+

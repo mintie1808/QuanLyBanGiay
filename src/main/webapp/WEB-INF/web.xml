@@ -19,4 +19,24 @@
     <servlet-name>Homecontroller</servlet-name>
     <url-pattern>/Homecontroller</url-pattern>
   </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>ShowProductController</display-name>
+    <servlet-name>ShowProductController</servlet-name>
+    <servlet-class>doan.Controller.web.ShowProductController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>ShowProductController</servlet-name>
+    <url-pattern>/ShowProductController</url-pattern>
+  </servlet-mapping>
+  <servlet>
+    <description></description>
+    <display-name>UserController</display-name>
+    <servlet-name>UserController</servlet-name>
+    <servlet-class>doan.Controller.web.UserController</servlet-class>
+  </servlet>
+  <servlet-mapping>
+    <servlet-name>UserController</servlet-name>
+    <url-pattern>/UserController</url-pattern>
+  </servlet-mapping>
 </web-app>

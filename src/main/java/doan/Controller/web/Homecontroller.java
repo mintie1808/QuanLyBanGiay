@@ -6,11 +6,13 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 
 import java.io.IOException;
 
 import doan.DAO.UserDAO;
 import doan.model.Usermodel;
+import doan.utils.PasswordHashing;
 
 /**
  * Servlet implementation class Homecontroller
@@ -31,58 +33,24 @@ public class Homecontroller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	protected void login(HttpServletRequest req, HttpServletResponse resp)
-
-			throws ServletException, IOException {
-		String method = req.getMethod();
-		if (method.equalsIgnoreCase("POST")) {
-			// TODO: ĐĂNG NHẬP
-			String username = req.getParameter("username");
-			String pw = req.getParameter("password");
-			try {
-				UserDAO dao = new UserDAO();
-				Usermodel user = dao.findByUserName(username);
-
-				if (!user.getPassword().equals(pw)) {
-					req.setAttribute("message", "Sai mật khẩu!");
-
-				} else {
-					req.setAttribute("message", "Đăng nhập thành công!");
-					req.getSession().setAttribute("user", user);
-				}
-			} catch (Exception e) {
-				req.setAttribute("message", "Sai tên đăng nhập!");
-			}
-		}
-		String pageToInclude = "/views/web/home.jsp";
-		req.getRequestDispatcher(pageToInclude).forward(req, resp);
-	}
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		String pageParam = request.getParameter("page");
 		if (pageParam != null) {
 			request.setAttribute("page", pageParam);
-			if(pageParam.equals("login")) {
-				String method = request.getMethod();
-				if (method.equalsIgnoreCase("POST")) {
-					// TODO: ĐĂNG NHẬP
-					String username = request.getParameter("username");
-					String pw = request.getParameter("password");
-						UserDAO dao = new UserDAO();
-						Usermodel user = dao.findByUserName(username);
-
-						if (!user.getPassword().equals(pw)) {
-							request.setAttribute("message", "Sai mật khẩu!");
-
-						}
-				}
-			}
 		}
 		String pageToInclude = "/views/web/home.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(pageToInclude);
 		rd.forward(request, response);
+	}
 
+	protected void forwardToPage(HttpServletRequest request, HttpServletResponse response, String message, String page,
+			String pageToInclude, String messageAttributeName) throws ServletException, IOException {
+		request.setAttribute(messageAttributeName, message);
+		request.setAttribute("page", page);
+		RequestDispatcher rd = request.getRequestDispatcher(pageToInclude);
+		rd.forward(request, response);
 	}
 
 	/**
@@ -92,8 +60,43 @@ public class Homecontroller extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.sendRedirect(request.getContextPath() + "/trang-chu");
+		String un = request.getParameter("username");
+		String pw = request.getParameter("password");
+		UserDAO udao = new UserDAO();
+		Usermodel umodel = udao.findByUserName(un);
 
+		String mes_sc = "message_success";
+		String mes = "message";
+		if (umodel != null) {
+			if (umodel.getStatus().equals("1") || umodel.getStatus().equals("2")) {
+				String hashedEnteredPassword = PasswordHashing.hashPassword(pw);
+				if (hashedEnteredPassword.equals(umodel.getPassword())) {
+					HttpSession session = request.getSession();
+					session.setAttribute("USER", umodel);
+					udao.updateStatus(umodel.getId(), "1");
+
+					int role = umodel.getRole();
+					if (role == 1 || role == 2) {
+//						forwardToPage(request, response, "Đăng nhập thành công", "", "/views/admin/home.jsp", mes_sc);
+						session.setAttribute(mes_sc, "Successfully Logged In");
+						response.sendRedirect(request.getContextPath() + "/admin-home");
+					} else {
+//						forwardToPage(request, response, "Đăng nhập thành công", "", "/views/web/home.jsp", mes_sc);
+						session.setAttribute(mes_sc, "Successfully Logged In");
+						response.sendRedirect(request.getContextPath() + "/trang-chu");
+					}
+				} else {
+					request.setAttribute("pwus", un);
+					request.setAttribute("p_mes", "Please enter correct information!");
+					forwardToPage(request, response, "Incorrect password!", "login", "/views/web/home.jsp", mes);
+				}
+			} else {
+				forwardToPage(request, response, "Account has been locked.", "login", "/views/web/home.jsp", mes);
+			}
+		} else {
+			request.setAttribute("p_mes", "Please enter correct information!");
+			forwardToPage(request, response, "Incorrect username!", "login", "/views/web/home.jsp", mes);
+		}
 	}
 
 }

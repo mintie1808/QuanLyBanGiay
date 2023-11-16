@@ -13,9 +13,9 @@ import javax.persistence.Table;
 public class CategoryModel {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int categoryId;
-	private String categoryName;
+	private int category_id;
 	private String Seotitle;
+	private String category_name;
 	private LocalDateTime CreatedDate;
 	private boolean Status;
 
@@ -44,19 +44,19 @@ public class CategoryModel {
 	}
 
 	public int getCategoryId() {
-		return categoryId;
+		return category_id;
 	}
 
 	public void setCategoryId(int categoryId) {
-		this.categoryId = categoryId;
+		this.category_id = categoryId;
 	}
 
 	public String getCategoryName() {
-		return categoryName;
+		return category_name;
 	}
 
 	public void setCategoryName(String categoryName) {
-		this.categoryName = categoryName;
+		this.category_name = categoryName;
 	}
 
 }

@@ -9,13 +9,13 @@
 			<form action="./trang-chu" method="post" >
 				<div class="input-box animation" style="--i: 1;--j:21;">
 
-					<input type="text" name="username" required > <label>Username</label> <i
+					<input type="text" name="username" value="${pwus }" required > <label>Username</label> <i
 						class="icon_profile"></i>
-							<div style="color: red;">${message }</div>
 				</div>
 				<div class="input-box animation" style="--i: 2;--j:22;">
 					<input type="password" name="password" required> <label>Password</label> <i
 						class="icon_lock"></i>
+
 				</div>
 				<input type="hidden" value="login" name="page"> 
 				<button type="submit" class="btn_login animation" style="--i: 3;--j:23;">Login</button>
@@ -35,17 +35,17 @@
 		<!-- register -->
 		<div class="form-box register">
 			<h2 class="animation" style="--i: 17;--j:0;">Sign Up</h2>
-			<form action="<c:url value='/trang-chu'/>" method="post">
+			<form action="./user" method="post">
 				<div class="input-box animation" style="--i: 18;--j:1;">
-					<input title="nhập sai UserName" type="text" required> <label>Username</label> <i
+					<input title="nhập sai UserName" name="us_register" type="text" required> <label>Username</label> <i
 						class="icon_profile"></i>
 				</div>
 				<div class="input-box animation" style="--i: 19;--j:2;">
-					<input type="text" required> <label>Email</label> <i
+					<input type="text" required name="email_register"> <label>Email</label> <i
 						class="icon_mail"></i>
 				</div>
 				<div class="input-box animation" style="--i: 20;--j:3;">
-					<input type="password" required> <label>Password</label> <i
+					<input type="password" name="ps_register" required> <label>Password</label> <i
 						class="icon_lock"></i>
 				</div>
 				<input type="hidden" value="login" name="page">

@@ -1,12 +1,14 @@
+<%@page import="doan.model.Usermodel"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Web bán hàng</title>
 <link rel="icon" href="img/100-icon-cao_110447695.jpg"
 	type="image/x-icon">
@@ -20,11 +22,11 @@
 	href="plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
 <!-- Custom Stylesheet -->
 <link href="css/admin/style.css" rel="stylesheet">
-
+<link href="css/admin/css__.css" rel="stylesheet">
+<link href="css/progress/css.css" rel="stylesheet">
 </head>
 
 <body>
-
 	<!--*******************
         Preloader start
     ********************-->
@@ -51,16 +53,31 @@
         ***********************************-->
 		<div class="nav-header">
 			<div class="brand-logo">
-				<a href="./admin-home"> <b class="logo-abbr"><img
-						src="img/100-icon-cao_110447695.jpg" alt=""> </b> <span
-					class="logo-compact"><img src="img/admin/logo-compact.png"
-						alt=""></span> <span class="brand-title"> <img
-						src="img/100-icon-cao_110447695.jpg" alt=""
-						style="width: 50px; height: 50px;">
+				<a href="./admin-home"> <b class="logo-abbr"> <c:choose>
+							<c:when test="${not empty USER.img}">
+								<img src="img/${USER.img}" class="class_img" alt="">
+							</c:when>
+							<c:otherwise>
+								<img src="img/user/Avatar_trang.jpg" class="class_img" alt="">
+							</c:otherwise>
+						</c:choose>
+				</b> <span class="logo-compact"><img
+						src="img/admin/logo-compact.png" alt=""></span> <span
+					class="brand-title"> <c:choose>
+							<c:when test="${not empty USER.img}">
+								<img src="img/${USER.img}" class="class_img" height="50"
+									width="50" alt="">
+							</c:when>
+							<c:otherwise>
+								<img src="img/user/Avatar_trang.jpg" class="class_img"
+									height="50" width="50" alt="">
+							</c:otherwise>
+						</c:choose>
 				</span>
 				</a>
 			</div>
 		</div>
+
 		<!--**********************************
             Nav header end
         ***********************************-->
@@ -222,8 +239,16 @@
 						<li class="icons dropdown">
 							<div class="user-img c-pointer position-relative"
 								data-toggle="dropdown">
-								<span class="activity active"></span> <img
-									src="img/icon_website.png" height="40" width="40" alt="">
+								<span class="activity active"></span>
+								<c:choose>
+									<c:when test="${not empty USER.img}">
+										<img src="img/${USER.img}" height="40" width="40" alt="">
+									</c:when>
+									<c:otherwise>
+										<img src="img/user/Avatar_trang.jpg" height="40" width="40"
+											alt="">
+									</c:otherwise>
+								</c:choose>
 							</div>
 							<div
 								class="drop-down dropdown-profile animated fadeIn dropdown-menu">
@@ -239,8 +264,14 @@
 										<hr class="my-2">
 										<li><a href="page-lock.html"><i class="icon-lock"></i>
 												<span>Lock Screen</span></a></li>
-										<li><a href="page-login.html"><i class="icon-key"></i>
-												<span>Logout</span></a></li>
+										<li>
+
+											<div class="f_logout">
+												<i class="icon-key"></i> <input type="hidden" name="logout"
+													value="true"> <span><button
+														class="btn_logout click_logout">Logout</button></span>
+											</div>
+										</li>
 									</ul>
 								</div>
 							</div>
@@ -268,7 +299,7 @@
 							<li><a href="./admin-home">Home 1</a></li>
 							<!-- <li><a href="./index-2.html">Home 2</a></li> -->
 						</ul></li>
-<!-- 					<li class="mega-menu mega-menu-sm">
+					<!-- 					<li class="mega-menu mega-menu-sm">
 						<a class="has-arrow" href="javascript:void()" aria-expanded="false"> 
 							<i class="icon-globe-alt menu-icon"></i>
 							<span class="nav-text">User Management</span>
@@ -278,13 +309,18 @@
 						</ul>
 					</li> -->
 					<li class="nav-label">Management</li>
-					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="icon-envelope menu-icon"></i>
-							<span class="nav-text">Users</span>
-					</a>
-						<ul aria-expanded="false">
-							<li><a href="./admin-home?page=user_management">List of users</a></li>
-						</ul></li>
+					<!--////////////////////User/////////////////////  -->
+					<c:if test="${USER.role==1 }">
+						<li><a class="has-arrow" href="javascript:void()"
+							aria-expanded="false"> <i class="icon-user menu-icon"></i> <span
+								class="nav-text">Users</span>
+						</a>
+							<ul aria-expanded="false">
+								<li><a href="./admin-home?page=user_management">List of
+										users</a></li>
+							</ul></li>
+					</c:if>
+					<!--end User  -->
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="icon-screen-tablet menu-icon"></i><span
 							class="nav-text">Apps</span>
@@ -387,6 +423,7 @@
 				</ul>
 			</div>
 		</div>
+
 		<!--**********************************
             Sidebar end
         ***********************************-->

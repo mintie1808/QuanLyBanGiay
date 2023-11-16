@@ -22,7 +22,7 @@ public class ProductModel {
 	private int category_id;
 	private boolean Status;
 	private LocalDateTime Hot;
-	private String Desiption;
+	private String Description;
 	private String Detail;
 	private LocalDateTime SALE;
 	private String Img;
@@ -70,11 +70,11 @@ public class ProductModel {
 	}
 
 	public String getDesiption() {
-		return Desiption;
+		return Description;
 	}
 
 	public void setDesiption(String desiption) {
-		Desiption = desiption;
+		Description = desiption;
 	}
 
 	public String getDetail() {
