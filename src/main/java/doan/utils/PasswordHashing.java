@@ -22,7 +22,7 @@ public class PasswordHashing {
     }
 
     public static void main(String[] args) {
-        String plainPassword = "tran123456";
+        String plainPassword = "malefashion";
         String hashedPassword = hashPassword(plainPassword);
         System.out.println("Hashed Password: " + hashedPassword);
     }

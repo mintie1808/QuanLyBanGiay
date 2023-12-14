@@ -30,7 +30,22 @@
 			<jsp:include page="shop/blog.jsp" />
 		</c:when>
 		<c:when test="${page == 'login'}">
-            <jsp:include page="shop/login.jsp" /> 
+			<jsp:include page="shop/Authentication/login.jsp" />
+		</c:when>
+		<c:when test="${page == 'register'}">
+			<jsp:include page="shop/Authentication/register.jsp" />
+		</c:when>
+		<c:when test="${page == 'edit_profile'}">
+			<jsp:include page="shop/edit_Profile.jsp" />
+		</c:when>
+		<c:when test="${page == 'forgot_password'}">
+			<jsp:include page="shop/Authentication/forgot_password.jsp" />
+		</c:when>
+		<c:when test="${page == 'enter_otp'}">
+			<jsp:include page="shop/Authentication/enter_otp.jsp" />
+		</c:when>
+		<c:when test="${page == 'new_password'}">
+			<jsp:include page="shop/Authentication/new_password.jsp" />
 		</c:when>
 		<c:otherwise>
 			<jsp:include page="shop/index.jsp" />

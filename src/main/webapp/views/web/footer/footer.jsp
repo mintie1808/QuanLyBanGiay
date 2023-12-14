@@ -85,7 +85,7 @@
 	</div>
 </div>
 <!-- Search End -->
-<div id="backtotop" class="align-items-center justify-content-center">
+<div id="backtotop" class="align-items-center justify-content-center"style="cursor: pointer;">
 	<i class="arrow_up"></i>
 </div>
 <!-- Js Plugins -->
@@ -99,9 +99,9 @@
 <script src="js/shop/mixitup.min.js"></script>
 <script src="js/shop/owl.carousel.min.js"></script>
 <script src="js/shop/main.js"></script>
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="js/js_click/click__.js"></script>
 
+<script src="js/js_click/click.js"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <c:if test="${ not empty message_success}">
 	<%
 	String message = (String) session.getAttribute("message_success");
@@ -120,6 +120,7 @@
 </c:if>
 
 <c:if test="${not empty USER }">
+
 	<jsp:include page="/views/progress/index.jsp"></jsp:include>
 
 	<div class="sweet-overlay editProfile" tabindex="-1"
@@ -143,7 +144,7 @@
 
 									<c:choose>
 										<c:when test="${not empty USER.img }">
-											<img src="img/${USER.img }" alt="Avatar"
+											<img src="img/user/${USER.img }" alt="Avatar"
 												class="img-fluid my-5"
 												style="width: 80px; border-radius: 50%; box-shadow: 0px 1px 10px 0 rgba(0, 0, 0, 0.15); background: #fff;" />
 										</c:when>
@@ -164,14 +165,16 @@
 								<div class="col-md-8">
 									<div class="card-body p-4">
 										<div class="text-right Information">
-											<div class="popover fade bs-popover-top css_edit_profile"
-												style="position: absolute; will-change: transform; top: 0px; left: 0px;">
+											<div class="popover fade bs-popover-top css_edit_profile" >
 												<div class="arrow" style="left: 33px;"></div>
 												<h3 class="popover-header"></h3>
 												<div class="popover-body">Edit profile</div>
 											</div>
-											<a href="#" class="a_edit popoverTrigger"> <span>
-													<i class="icon_link_alt"></i>
+											<a href="./user" class="a_edit popoverTrigger displayDiv" > <span
+												style="transform: scaleX(-1);"> <i
+													class="icon_pencil-edit">
+														<!--  icon_link_alt-->
+												</i>
 											</span>
 											</a>
 										</div>
@@ -179,8 +182,13 @@
 										<hr class="mt-0 mb-4">
 										<div class="row pt-1">
 											<div class="col-6 mb-3">
-												<h6>Email</h6>
-												<p class="text-muted">${USER.email }</p>
+												<h6>
+													Email
+													<button class="bg-transparent border-0 emdisplay">
+														Display</button>
+												</h6>
+
+												<p class="text-muted" id="emailDisplay">${USER.email }</p>
 											</div>
 											<div class="col-6 mb-3">
 												<h6>Account</h6>
@@ -192,11 +200,21 @@
 										<div class="row pt-1">
 											<div class="col-6 mb-3">
 												<h6>Address</h6>
-												<p class="text-muted">${USER.address }</p>
+												<p class="text-muted">${empty USER.address ?'Empty':USER.address}</p>
 											</div>
 											<div class="col-6 mb-3">
 												<h6>Phone</h6>
-												<p class="text-muted">0${USER.phone }</p>
+												<p class="text-muted">
+													<c:choose>
+														<c:when test="${USER.phone ==0}">
+															Empty
+														</c:when>
+														<c:otherwise>
+															0${USER.phone }
+														</c:otherwise>
+													</c:choose>
+
+												</p>
 											</div>
 										</div>
 									</div>

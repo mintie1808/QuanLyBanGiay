@@ -26,9 +26,150 @@
 	cursor: pointer;
 	color: #2e28f6;
 }
+
 button:focus {
-    outline: none;
+	outline: none;
 }
 
+input[type="checkbox"]:after {
+	border: 1px solid #c6c6c6;
+	border-radius: 5px;
+	cursor: pointer;
+}
 
+#hiddenDiv {
+	display: none;
+}
+
+.hiddenbtn {
+	display: block;
+}
+
+.div_table {
+	max-height: 420px;
+	overflow-y: auto;
+	overflow-x: hidden;
+}
+
+.tr_listuser:hover {
+	background-color: #f5f5f5; /* Màu nền khi hover vào */
+	color: #333; /* Màu chữ khi hover vào */
+}
+
+.td_ul_user {
+	display: none;
+}
+
+.tr_listuser:hover .td_ul_user-status {
+	display: none;
+}
+
+.tr_listuser {
+	position: relative;
+	overflow: hidden; /* Để ẩn phần tử con khi không hover */
+	cursor: pointer;
+}
+
+.tr_listuser:hover>.td_ul_user {
+	transform: translateY(0); /* Di chuyển phần tử xuống dưới khi hover */
+	opacity: 1; /* Hiển thị phần tử khi hover */
+}
+
+.td_ul_user {
+	width: 39px;
+	height: 37px;
+	transition: transform 0.3s ease-in-out, opacity 0.3s ease-in-out;
+	/* Hiệu ứng chuyển động */
+	position: absolute;
+	display: inline-flex;
+	justify-content: center;
+	align-items: center;
+	outline: none;
+	z-index: 0;
+	cursor: pointer;
+	list-style: none;
+	margin: 10px 0;
+}
+
+.div_table:hover .th_ul_user-status::after {
+	content: "";
+	position: absolute;
+	display: block;
+	background-color: #fff;
+	z-index: 1;
+	padding: 2px;
+	margin-top: -2px;
+}
+
+.div_table .th_ul_user-status::before {
+	content: attr(data-content-before);
+}
+
+.div_table:hover .th_ul_user-status::before {
+	content: "Actions";
+}
+
+.div_table .th_ul_user-status:after {
+	content: "";
+	position: absolute;
+	display: none;
+}
+
+th {
+	position: sticky;
+	top: 0;
+	background-color: #FFF; /* Màu nền của thead khi cuộn */
+	z-index: 2; /* Để đảm bảo nó hiển thị trên các phần tử khác */
+}
+
+.selected-row {
+	background: #f5f5f5;
+}
+
+.selected-row:hover {
+	box-shadow: inset 1px 1px 0 #dadce0, inset -1px 0 0 #dadce0, 0 -1px 1px
+		0 rgba(60, 64, 67, .3), 0 1px 3px 1px rgba(60, 64, 67, .15);
+}
+
+.td_ul_user:hover {
+	width: 39px;
+	height: 39px;
+	border-radius: 50%;
+	background-color: rgba(32, 33, 36, 0.059);
+	border: none;
+	box-shadow: none;
+	opacity: 1;
+	transform: scale(1);
+	background-color: rgba(32, 33, 36, 0.059);
+}
+
+.td_userma {
+	width: 59px;
+	height: 39px;
+}
+
+.checkbox_div:hover {
+	position: relative;
+	z-index: 1;
+	width: 35px;
+	height: 35px;
+	border-radius: 50%;
+	background-color: rgba(32, 33, 36, 0.059);
+	border: none;
+	box-shadow: none;
+	opacity: 1;
+	transform: scale(1);
+	background-color: rgba(32, 33, 36, 0.059);
+}
+.sl_img-ep_avatar-img{
+	width: 150px;
+	height: 150px;
+	border-radius:50%; 
+}
+.sweet-alert::-webkit-scrollbar {
+  width: 0;
+}
+body::-webkit-scrollbar {
+  width: 0;
+}
 

@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Web bán hàng</title>
+<title>${page }</title>
 <link rel="icon" href="img/100-icon-cao_110447695.jpg"
 	type="image/x-icon">
 
@@ -24,6 +24,8 @@
 <link href="css/admin/style.css" rel="stylesheet">
 <link href="css/admin/css__.css" rel="stylesheet">
 <link href="css/progress/css.css" rel="stylesheet">
+<link href="css/admin/sweetalert/css/sweetalert.css">
+<link href="./plugins/summernote/dist/summernote.css" rel="stylesheet">
 </head>
 
 <body>
@@ -55,7 +57,7 @@
 			<div class="brand-logo">
 				<a href="./admin-home"> <b class="logo-abbr"> <c:choose>
 							<c:when test="${not empty USER.img}">
-								<img src="img/${USER.img}" class="class_img" alt="">
+								<img src="img/user/${USER.img}" class="class_img" alt="">
 							</c:when>
 							<c:otherwise>
 								<img src="img/user/Avatar_trang.jpg" class="class_img" alt="">
@@ -65,7 +67,7 @@
 						src="img/admin/logo-compact.png" alt=""></span> <span
 					class="brand-title"> <c:choose>
 							<c:when test="${not empty USER.img}">
-								<img src="img/${USER.img}" class="class_img" height="50"
+								<img src="img/user/${USER.img}" class="class_img" height="50"
 									width="50" alt="">
 							</c:when>
 							<c:otherwise>
@@ -100,8 +102,11 @@
 								class="input-group-text bg-transparent border-0 pr-2 pr-sm-3"
 								id="basic-addon1"><i class="mdi mdi-magnify"></i></span>
 						</div>
-						<input type="search" class="form-control"
+						<form action="./admin-user">
+							<input type="text" class="form-control" name="txtsearch" value="${txtsearch }"
 							placeholder="Search Dashboard" aria-label="Search Dashboard">
+						</form>
+
 						<div class="drop-down animated flipInX d-md-none">
 							<form action="#">
 								<input type="text" class="form-control" placeholder="Search">
@@ -224,15 +229,15 @@
 							</div></li>
 						<li class="icons dropdown d-none d-md-flex"><a
 							href="javascript:void(0)" class="log-user" data-toggle="dropdown">
-								<span>English</span> <i class="fa fa-angle-down f-s-14"
+								<span translate="no">English</span> <i class="fa fa-angle-down f-s-14"
 								aria-hidden="true"></i>
 						</a>
 							<div
 								class="drop-down dropdown-language animated fadeIn  dropdown-menu">
 								<div class="dropdown-content-body">
 									<ul>
-										<li><a href="javascript:void()">English</a></li>
-										<li><a href="javascript:void()">Dutch</a></li>
+										<li><a href="javascript:void()" translate="no">English</a></li>
+										<li><a href="javascript:void()" translate="no">Dutch</a></li>
 									</ul>
 								</div>
 							</div></li>
@@ -242,7 +247,7 @@
 								<span class="activity active"></span>
 								<c:choose>
 									<c:when test="${not empty USER.img}">
-										<img src="img/${USER.img}" height="40" width="40" alt="">
+										<img src="img/user/${USER.img}" height="40" width="40" alt="">
 									</c:when>
 									<c:otherwise>
 										<img src="img/user/Avatar_trang.jpg" height="40" width="40"
@@ -316,19 +321,19 @@
 								class="nav-text">Users</span>
 						</a>
 							<ul aria-expanded="false">
-								<li><a href="./admin-home?page=user_management">List of
+								<li><a href="./admin-user">List of
 										users</a></li>
 							</ul></li>
 					</c:if>
 					<!--end User  -->
 					<li><a class="has-arrow" href="javascript:void()"
-						aria-expanded="false"> <i class="icon-screen-tablet menu-icon"></i><span
+						aria-expanded="false"> <i class="icon-pencil"></i><span
 							class="nav-text">Apps</span>
 					</a>
 						<ul aria-expanded="false">
-							<li><a href="./app-profile.html">Profile</a></li>
-							<li><a href="./app-calender.html">Calender</a></li>
-						</ul></li>
+							<li><a href="./admin-product">Product</a></li>
+							<li><a href="./admin-Supplier">Supplier</a></li>
+						</ul>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="icon-graph menu-icon"></i> <span
 							class="nav-text">Charts</span>

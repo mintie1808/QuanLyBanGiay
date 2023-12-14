@@ -8,14 +8,24 @@ import jakarta.servlet.http.HttpSessionListener;
 
 @WebListener
 public class MySessionListener implements HttpSessionListener {
+	@Override
+	public void sessionDestroyed(HttpSessionEvent se) {
+	    // Lấy người dùng từ session
+	    Usermodel user = (Usermodel) se.getSession().getAttribute("USER");
 
-    @Override
-    public void sessionDestroyed(HttpSessionEvent se) {
-        // Lấy người dùng từ session và cập nhật trạng thái
-        Usermodel user = (Usermodel) se.getSession().getAttribute("USER");
-        if (user != null && (user.getStatus().equals("1") || user.getStatus().equals("2"))) {
-            UserDAO udao = new UserDAO();
-            udao.updateStatus(user.getId(), "2");
-        }
-    }
+	    // Kiểm tra xem session có bị invalidate không
+	    if (user != null) {
+	        // Kiểm tra trạng thái người dùng
+	        String userStatus = user.getStatus();
+	        if ("1".equals(userStatus) || "2".equals(userStatus)) {
+	            // Cập nhật trạng thái người dùng
+	            UserDAO udao = new UserDAO();
+	            udao.updateStatus(user.getId(), "2");
+	        }
+	        
+	        // Xóa thông tin người dùng khỏi session
+	        se.getSession().removeAttribute("USER");
+	    }
+	}
+
 }

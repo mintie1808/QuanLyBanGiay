@@ -18,45 +18,37 @@ public class CategoryModel {
 	private String category_name;
 	private LocalDateTime CreatedDate;
 	private boolean Status;
-
+	public int getCategory_id() {
+		return category_id;
+	}
+	public void setCategory_id(int category_id) {
+		this.category_id = category_id;
+	}
 	public String getSeotitle() {
 		return Seotitle;
 	}
-
 	public void setSeotitle(String seotitle) {
 		Seotitle = seotitle;
 	}
-
+	public String getCategory_name() {
+		return category_name;
+	}
+	public void setCategory_name(String category_name) {
+		this.category_name = category_name;
+	}
 	public LocalDateTime getCreatedDate() {
 		return CreatedDate;
 	}
-
 	public void setCreatedDate(LocalDateTime createdDate) {
 		CreatedDate = createdDate;
 	}
-
 	public boolean isStatus() {
 		return Status;
 	}
-
 	public void setStatus(boolean status) {
 		Status = status;
 	}
 
-	public int getCategoryId() {
-		return category_id;
-	}
-
-	public void setCategoryId(int categoryId) {
-		this.category_id = categoryId;
-	}
-
-	public String getCategoryName() {
-		return category_name;
-	}
-
-	public void setCategoryName(String categoryName) {
-		this.category_name = categoryName;
-	}
+	
 
 }

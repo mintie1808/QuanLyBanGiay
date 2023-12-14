@@ -1,7 +1,5 @@
 package doan.model;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,10 +19,25 @@ public class ProductModel {
 	private int SupplierID;
 	private int category_id;
 	private boolean Status;
-	private LocalDateTime Hot;
+	private boolean Hot;
 	private String Description;
 	private String Detail;
-	private LocalDateTime SALE;
+	private boolean SALE;
+	public boolean isHot() {
+		return Hot;
+	}
+	public void setHot(boolean hot) {
+		Hot = hot;
+	}
+
+	public boolean isSALE() {
+		return SALE;
+	}
+
+	public void setSALE(boolean sALE) {
+		SALE = sALE;
+	}
+
 	private String Img;
 	private int Amount;
 	private int Sold;
@@ -53,28 +66,13 @@ public class ProductModel {
 		Status = status;
 	}
 
-	public LocalDateTime getHot() {
-		return Hot;
-	}
 
-	public void setHot(LocalDateTime hot) {
-		Hot = hot;
-	}
-
-	public LocalDateTime getSALE() {
-		return SALE;
-	}
-
-	public void setSALE(LocalDateTime sALE) {
-		SALE = sALE;
-	}
-
-	public String getDesiption() {
+	public String getDescription() {
 		return Description;
 	}
 
-	public void setDesiption(String desiption) {
-		Description = desiption;
+	public void setDescription(String description) {
+		Description = description;
 	}
 
 	public String getDetail() {

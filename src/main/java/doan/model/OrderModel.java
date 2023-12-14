@@ -1,6 +1,7 @@
 package doan.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -58,4 +59,9 @@ public class OrderModel {
 	public void setTotalAmount(int totalAmount) {
 		TotalAmount = totalAmount;
 	}
+    public String getFormattedOrderDate() {
+        // Chọn định dạng bạn muốn, ví dụ "yyyy-MM-dd HH:mm:ss.SSS"
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss.SSS");
+        return getOrderDate().format(formatter);
+    }
 }

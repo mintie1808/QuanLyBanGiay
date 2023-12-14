@@ -26,4 +26,6 @@
 <script src="plugins/chartist/js/chartist.min.js"></script>
 <script
 	src="plugins/chartist-plugin-tooltips/js/chartist-plugin-tooltip.min.js"></script>
-<script src="js/js_click/click__.js"></script>
+<script src="js/js_click/click.js"></script>
+    <script src="./plugins/summernote/dist/summernote.min.js"></script>
+    <script src="./plugins/summernote/dist/summernote-init.js"></script>

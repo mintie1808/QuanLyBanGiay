@@ -1,6 +1,11 @@
+<%@page import="doan.model.CartItem"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
+<%@ page import="java.util.List"%>
+<%@ page import="java.util.ArrayList"%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -33,6 +38,7 @@
 <link rel="stylesheet" href="css/shop/style.css" type="text/css">
 <link rel="stylesheet" href="css/shop/css.css" type="text/css">
 <link href="css/progress/css.css" rel="stylesheet">
+<link rel="stylesheet" href="css/shop/l_r_css.css" type="text/css">
 </head>
 
 <body>
@@ -50,14 +56,14 @@
 			<c:choose>
 				<c:when test="${empty USER }">
 					<div class="offcanvas__links">
-						<a href="./trang-chu?page=login">Sign in</a>
+						<a href="./login">Sign in</a>
 					</div>
 				</c:when>
 				<c:otherwise>
 					<div class="c-pointer position-relative">
 						<c:choose>
 							<c:when test="${not empty USER.img }">
-								<img src="img/${USER.img }" height="40" width="40" alt=""
+								<img src="img/user/${USER.img }" height="40" width="40" alt=""
 									style="background: #fff; border-radius: 50%; box-shadow: 0px 1px 10px 0 rgba(0, 0, 0, 0.15);"
 									class="offcanvas_click_img">
 							</c:when>
@@ -115,31 +121,36 @@
 							<c:if test="${not empty USER }">
 								<div class="header__top__left">
 									<div class="user-img c-pointer position-relative">
-										<c:choose>
-											<c:when test="${not empty USER.img }">
-												<img src="img/${USER.img }" height="40" width="40" alt=""
-													style="background: #fff;">
-											</c:when>
-											<c:otherwise>
-												<img src="img/user/Avatar_trang.jpg" height="40" width="40"
-													alt="" style="background: #fff;">
-											</c:otherwise>
-										</c:choose>
+										<a href="./user" class="displayDiv"> <c:choose>
+												<c:when test="${not empty USER.img }">
+													<img src="img/user/${USER.img }" height="40" width="40"
+														alt="" style="background: #fff;">
+												</c:when>
+												<c:otherwise>
+													<img src="img/user/Avatar_trang.jpg" height="40" width="40"
+														alt="" style="background: #fff;">
+												</c:otherwise>
+											</c:choose>
+										</a>
 									</div>
 									<div
 										class="drop-down dropdown-profile animated fadeIn dropdown-menu">
+										<div class="arrow-box" style="left: 10px;"></div>
 										<div class="dropdown-content-body">
 											<ul>
 												<li>
 													<div class="text-right">
 														<div class="popover fade bs-popover-top"
-															style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(157px, -42px, 0px);">
+															style="position: absolute; will-change: transform; top: 0px; left: 0px; transform: translate3d(162px, -42px, 0px);">
 															<div class="arrow" style="left: 33px;"></div>
 															<h3 class="popover-header"></h3>
 															<div class="popover-body">Edit profile</div>
 														</div>
-														<a href="#" class="a_edit"> <span
-															class="popoverTrigger"> <i class="icon_link_alt"></i>
+														<a href="./user" class="a_edit"
+															style="transform: scaleX(-1);"> <span
+															class="popoverTrigger displayDiv"> <i
+																class="icon_pencil-edit"> <!--  icon_link_alt-->
+															</i>
 														</span>
 														</a>
 													</div>
@@ -150,7 +161,7 @@
 															<div class="img">
 																<c:choose>
 																	<c:when test="${not empty USER.img }">
-																		<img class="img_click" src="img/${USER.img }"
+																		<img class="img_click" src="img/user/${USER.img }"
 																			alt="img" style="background: #fff;">
 																	</c:when>
 																	<c:otherwise>
@@ -168,12 +179,13 @@
 													</div>
 												</li>
 												<li class="d-flex justify-content-center"><a
-													href="app-profile.html"><span>${USER.fullname }</span></a>
+													href="./user"><span class="displayDiv">${USER.fullname }</span></a>
 												</li>
 
 												<hr class="my-2">
-												<li><a href="page-lock.html"><i
-														class="icon_lock_alt"></i> <span>Lock Screen</span></a></li>
+												<li><a href="./user"><i class="icon_clipboard"></i>
+														<span data-target="reviewOrder" class="displayDiv">Review
+															Order</span></a></li>
 												<li>
 													<div class="f_logout">
 														<i class="icon_key_alt"></i> <span><button
@@ -188,7 +200,7 @@
 							</c:if>
 							<div class="header__top__links">
 								<c:if test="${empty USER }">
-									<a href="./trang-chu?page=login">Sign in</a>
+									<a href="./login">Sign in</a>
 								</c:if>
 								<a href="#">FAQs</a>
 							</div>
@@ -239,11 +251,28 @@
 				<div class="col-lg-3 col-md-3">
 					<div class="header__nav__option">
 						<a href="#" class="search-switch"><img
-							src="img/shop/icon/search.png" alt=""></a> <a href="#"><img
-							src="img/shop/icon/heart.png" alt=""></a> <a
-							href="./trang-chu?page=shopping_cart"><img
-							src="img/shop/icon/cart.png" alt=""> <span>0</span></a>
-						<div class="price">$0.00</div>
+							src="img/shop/icon/search.png" alt=""></a>
+						<!--<a href="#"><img src="img/shop/icon/heart.png" alt=""></a> -->
+						<a href="./trang-chu?page=shopping_cart"> <%
+ List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
+ double total = 0.0;
+ int quanti = 0;
+ if (cart != null && !cart.isEmpty()) {
+ 	for (CartItem cartItem : cart) {
+ 		total += cartItem.getPrice() * cartItem.getQuantity();
+ 		quanti++;
+ 	}
+ }
+ %> <img src="img/shop/icon/cart.png" alt=""> <%
+ if (quanti != 0) {
+ %> <span class="badge gradient-1 badge-pill"
+							style="left: 13px; top: -5px; background-image: linear-gradient(230deg, #fc5286, #fbaaa2);"><%=quanti%></span>
+							<%
+							}
+							%>
+						</a>
+						<div class="price m-1">
+							$<%=total%></div>
 					</div>
 				</div>
 			</div>

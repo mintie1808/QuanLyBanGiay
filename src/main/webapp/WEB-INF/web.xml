@@ -11,32 +11,22 @@
   </welcome-file-list>
   <servlet>
     <description></description>
-    <display-name>Homecontroller</display-name>
-    <servlet-name>Homecontroller</servlet-name>
-    <servlet-class>doan.Controller.admin.Homecontroller</servlet-class>
+    <display-name>Supplier_a</display-name>
+    <servlet-name>Supplier_a</servlet-name>
+    <servlet-class>doan.Controller.admin.Supplier_a</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>Homecontroller</servlet-name>
-    <url-pattern>/Homecontroller</url-pattern>
+    <servlet-name>Supplier_a</servlet-name>
+    <url-pattern>/Supplier_a</url-pattern>
   </servlet-mapping>
   <servlet>
     <description></description>
-    <display-name>ShowProductController</display-name>
-    <servlet-name>ShowProductController</servlet-name>
-    <servlet-class>doan.Controller.web.ShowProductController</servlet-class>
+    <display-name>Usercontroller</display-name>
+    <servlet-name>Usercontroller</servlet-name>
+    <servlet-class>doan.Controller.admin.Usercontroller</servlet-class>
   </servlet>
   <servlet-mapping>
-    <servlet-name>ShowProductController</servlet-name>
-    <url-pattern>/ShowProductController</url-pattern>
-  </servlet-mapping>
-  <servlet>
-    <description></description>
-    <display-name>UserController</display-name>
-    <servlet-name>UserController</servlet-name>
-    <servlet-class>doan.Controller.web.UserController</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>UserController</servlet-name>
-    <url-pattern>/UserController</url-pattern>
+    <servlet-name>Usercontroller</servlet-name>
+    <url-pattern>/Usercontroller</url-pattern>
   </servlet-mapping>
 </web-app>

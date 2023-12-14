@@ -11,6 +11,12 @@
 		<c:when test="${page == 'user_management'}">
 			<jsp:include page="Ql_shop/UserManagement.jsp" />
 		</c:when>
+		<c:when test="${page == 'product_manager'}">
+			<jsp:include page="Ql_shop/ProductManagement.jsp" />
+		</c:when>
+		<c:when test="${page == 'supplier_manager'}">
+			<jsp:include page="Ql_shop/SupplierManagement.jsp" />
+		</c:when>
 		<c:otherwise>
 			<jsp:include page="Ql_shop/index.jsp" />
 		</c:otherwise>
@@ -18,10 +24,10 @@
 </div>
 <!-- set footer cho file -->
 <c:choose>
-    <c:when test="${empty page or page == 'index'}">
-        <jsp:include page="/views/admin/Ql_shop/footer.jsp" />
-    </c:when>
-    <c:otherwise>
-        <jsp:include page="/views/admin/Ql_shop/footer__.jsp" />
-    </c:otherwise>
+	<c:when test="${empty page or page == 'index'}">
+		<jsp:include page="/views/admin/Ql_shop/footer.jsp" />
+	</c:when>
+	<c:otherwise>
+		<jsp:include page="/views/admin/Ql_shop/footer__.jsp" />
+	</c:otherwise>
 </c:choose>

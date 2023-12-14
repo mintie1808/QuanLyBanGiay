@@ -40,7 +40,7 @@
 			<button class="cancel" tabindex="1"
 				style="display: inline-block; box-shadow: none;">Cancel</button>
 			<div class="sa-confirm-button-container">
-				<form action="./user" method="post">
+				<form action="./login" method="post">
 					<div class="f_logout">
 						<input type="hidden" name="logout" value="true"> <span>
 							<button class="confirm" tabindex="2"
