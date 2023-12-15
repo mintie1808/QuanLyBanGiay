@@ -210,11 +210,13 @@
 												class="list-group-item list-group-item-action flex-column align-items-start">
 												<div class="d-flex w-100 justify-content-between">
 													<h5 class="mb-1"></h5>
+
 													<!-- <small class="text-muted">3 days ago</small> -->
-												</div>
-												<p class="mb-1">${data.totalAmount }</p>
-													
-													 <small
+												</div> 
+												<c:forEach items="${listOrderdetal }" var="orderdetail">
+													<p class="mb-1">${orderdetail.ProductID }</p>
+												</c:forEach>
+												<p class="mb-1">${data.totalAmount }</p> <small
 												class="text-muted">${ data.status}</small>
 											</a>
 										</div>

@@ -1,12 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 
-<input class="tb_1" value="${message_success}" type="hidden">
+<input class="tb_1" value="${message_add }${message_success}" type="hidden">
+
 <input class="tb" value="${message}" type="hidden">
 <div class="sweet-overlay div_background" tabindex="-1"
 	style="opacity: 1.09; z-index: 99999; display: none;">
 	<div class="sweet-alert showSweetAlert visible"
-		style="display: none; margin-top: -230px;">
+		style="display: block; margin-top: -230px;">
 		<div class="sa-icon sa-error animateErrorIcon" style="display: none;">
 			<span class="sa-x-mark animateXMark"> <span
 				class="sa-line sa-left"></span> <span class="sa-line sa-right"></span>
@@ -19,10 +20,10 @@
 			<div class="sa-placeholder"></div>
 			<div class="sa-fix"></div>
 		</div>
-		<h2 class="h2_sweet-alert" style="display: none;">${message}${message_success }</h2>
+		<h2 class="h2_sweet-alert" style="display: none;">${message}${message_success }${message_add }</h2>
 		<h2 class="h2_sweet-alert_2" style="display: none;">Do you want
 			to exit?</h2>
-		<p class="p_sweet-alert" style="display: none;">${p_mes }</p>
+		<p class="p_sweet-alert" style="display: none;">${p_mes }${message_adds }</p>
 		<p class="p_sweet-alert_2" style="display: none;">Press OK to exit</p>
 		<fieldset>
 			<input type="text" tabindex="3" placeholder="">

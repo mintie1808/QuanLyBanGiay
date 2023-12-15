@@ -12,6 +12,7 @@ import java.util.List;
 
 import doan.DAO.ProductDAO;
 import doan.DAO.SupplierDAO;
+
 import doan.model.CategoryModel;
 import doan.model.ProductModel;
 import doan.model.SupplierModel;
@@ -30,6 +31,7 @@ public class ProductController extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 //
 	protected void forwardToPage(HttpServletRequest request, HttpServletResponse response, String page)
 			throws ServletException, IOException {
@@ -55,11 +57,31 @@ public class ProductController extends HttpServlet {
 		// nguyên
 		String searchTerm = request.getParameter("textsearchName");
 
+		int pages = 1;
+		if (request.getParameter("pages") != null && request.getParameter("pages") != "") {
+			pages = Integer.parseInt(request.getParameter("pages"));
+		}
+
 		if (cateID != null && !cateID.isEmpty()) {
+			if (cateID == null || cateID.isEmpty()) {
+				cateID = ""; 
+			}
+			request.setAttribute("cateID", cateID);
 			// tiến
-			List<ProductModel> productListct = dao.getAllProductByCategory(Integer.parseInt(cateID));
+
+			int limit = 6;
+			List<ProductModel> productListct = dao.getAllProductByCategory(Integer.parseInt(cateID),limit,pages);
 			request.setAttribute("listP", productListct);
 			request.setAttribute("tag", cateID);
+			
+			int itemCount = productListct.size();
+			int tocalrecord =(int) dao.countCategory_id(Integer.parseInt(cateID));
+			int totalpage = (int) Math.ceil((float)tocalrecord/(float)limit);
+
+			request.setAttribute("itemCounts", itemCount);
+			request.setAttribute("totalpage", totalpage);
+			request.setAttribute("tocalrecord", tocalrecord);
+			request.setAttribute("itemcount", pages);
 		} else if (pri != null && !pri.isEmpty()) {
 			// tiến
 			List<ProductModel> productList = new ArrayList<ProductModel>();
@@ -72,34 +94,32 @@ public class ProductController extends HttpServlet {
 				productList = dao.getAllProductByPrice(first, last);
 			}
 			request.setAttribute("listP", productList);
-		}else if(prid != null && !prid.isEmpty()) { 
+		} else if (prid != null && !prid.isEmpty()) {
 			List<ProductModel> productListpr = new ArrayList<ProductModel>();
-			if(pmin != null && !pmin.isEmpty()) {
-				if(pmax != null && !pmax.isEmpty()) {
+			if (pmin != null && !pmin.isEmpty()) {
+				if (pmax != null && !pmax.isEmpty()) {
 					productListpr = dao.getAllProductByPrice(Integer.parseInt(pmin), Integer.parseInt(pmax));
-				}else  
+				} else
 					productListpr = dao.getAllProductByPriceMin(Integer.parseInt(pmin));
-			}else if(pmax != null && !pmax.isEmpty()) {
+			} else if (pmax != null && !pmax.isEmpty()) {
 				productListpr = dao.getAllProductByPriceMax(Integer.parseInt(pmax));
-			}else
+			} else
 				productListpr = dao.getAllProduct();
-				
+
 			request.setAttribute("listP", productListpr);
-		}else if (sort != null && !sort.isEmpty()) {
+		} else if (sort != null && !sort.isEmpty()) {
 			List<ProductModel> productListpri = new ArrayList<ProductModel>();
 			if (sort.contains("LtoH")) {
 				request.setAttribute("LtoH", true);
 				productListpri = dao.getAllProductByPriceLowToHigh();
-			}else {
+			} else {
 				request.setAttribute("HtoL", true);
-			productListpri =dao.getAllProductByPriceHighToLow();
-			
+				productListpri = dao.getAllProductByPriceHighToLow();
+
 			}
 			request.setAttribute("listP", productListpri);
 		}
-		
-		
-		
+
 		else if (supid != null && !supid.isEmpty()) {
 			List<ProductModel> supList = dao.getAllProductBySupplier(Integer.parseInt(supid));
 			request.setAttribute("listP", supList);
@@ -108,25 +128,32 @@ public class ProductController extends HttpServlet {
 
 			List<ProductModel> listPc = dao.getAllProductByColor(colo);
 			request.setAttribute("listP", listPc);
-		}
-
-		else if (searchTerm != null && !searchTerm.isEmpty()) {
-			// nguyên
-			List<ProductModel> searchResults = dao.findByName(searchTerm);
-			request.setAttribute("listP", searchResults);
 		} else {
 			// tiến
-			List<ProductModel> productList = dao.getAllProduct();
-			request.setAttribute("listP", productList);
+			if (searchTerm == null || searchTerm.isEmpty()) {
+				searchTerm = ""; 
+			}
+			request.setAttribute("txtsearch", searchTerm);
+			int limit = 6;
+			List<ProductModel> searchResults = dao.findByName(searchTerm, limit, pages);
+			
+			int itemCount = searchResults.size();
+			int tocalrecord =(int) dao.count(searchTerm);
+			int totalpage = (int) Math.ceil((float)tocalrecord/(float)limit);
+
+			request.setAttribute("itemCounts", itemCount);
+			request.setAttribute("totalpage", totalpage);
+			request.setAttribute("tocalrecord", tocalrecord);
+			request.setAttribute("itemcount", pages);
+			request.setAttribute("listP", searchResults);
 		}
 	}
-
 
 	protected void processRequest(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		ProductDAO dao = new ProductDAO();
-		SupplierDAO daosp =new SupplierDAO();
+		SupplierDAO daosp = new SupplierDAO();
 		List<SupplierModel> supList = daosp.getAllSupplier();
 		request.setAttribute("listS", supList);
 		List<CategoryModel> categoryList = dao.getAllCategory();

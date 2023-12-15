@@ -22,6 +22,23 @@
 
 
 <jsp:include page="/views/admin/Ql_shop/footer_import.jsp"></jsp:include>
+
+<c:if test="${ not empty message_add}">
+	<%
+	String message = (String) session.getAttribute("message_add");
+	if (message != null) {
+	%>
+	<jsp:include page="/views/progress/index.jsp"></jsp:include>
+	<%
+	session.removeAttribute("message_add"); // Để tránh hiển thị lại thông báo khi refresh trang
+	}
+	%>
+</c:if>
+<c:if test="${not empty message}">
+
+	<jsp:include page="/views/progress/index.jsp"></jsp:include>
+
+</c:if>
 <c:if test="${not empty USER }">
 	<jsp:include page="/views/progress/index.jsp"></jsp:include>
 </c:if>

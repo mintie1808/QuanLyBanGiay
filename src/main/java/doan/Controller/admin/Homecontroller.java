@@ -9,8 +9,11 @@ import jakarta.servlet.http.HttpServletResponse;
 
 
 import java.io.IOException;
+import java.text.NumberFormat;
 import java.util.List;
 
+import doan.DAO.OrderDAO;
+import doan.DAO.ProductDAO;
 import doan.DAO.UserDAO;
 import doan.model.Usermodel;
 import doan.utils.AccessUtils;
@@ -34,7 +37,10 @@ public class Homecontroller extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-
+	 private String formatAsUSD(int amount) {
+	        NumberFormat currencyFormat = NumberFormat.getCurrencyInstance(java.util.Locale.US);
+	        return currencyFormat.format(amount);
+	    }
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		if(!AccessUtils.checkUserRole(request, response)){
@@ -52,7 +58,18 @@ public class Homecontroller extends HttpServlet {
 
 		long cout = lsuser.stream().filter(item -> item.getRole() != 1 && item.getRole() != 2).count();
 		request.setAttribute("itemcount", cout);
+		
+		OrderDAO oDao = new OrderDAO();
+		int TotalAmount = oDao.getTotalOrderAmount();
+		
+		ProductDAO productDAO = new ProductDAO();
+		int soldproduct = productDAO.getsoldPrduct();
+		request.setAttribute("soldproduct", soldproduct);
+		
 
+        // Định dạng số thành tiền USD
+        String formattedTotalAmount = formatAsUSD(TotalAmount);
+		request.setAttribute("TotalAmount", formattedTotalAmount);
 
 		RequestDispatcher rd = request.getRequestDispatcher("/views/admin/home.jsp");
 		rd.forward(request, response);

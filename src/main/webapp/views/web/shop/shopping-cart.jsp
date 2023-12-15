@@ -8,41 +8,76 @@
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
-	// Function to update quantity using Ajax
-	function updateQuantity(productId, newQuantity) {
-		$.ajax({
-			url : 'updateQuantity', // Replace with your CartController UR
-			method : 'POST',
-			data : {
-				productId : productId,
-				newQuantity : newQuantity
-			},
-			success : function(response) {
-				// Update the cart display or handle success as needed
-				console.log(response);
-				location.reload();
-			},
-			error : function(error) {
-				console.error('Error updating quantity:', error);
-			}
-		});
-	}
-	function removeCartItem(productId) {
-		$.ajax({
-			url : 'removeCartItem',
-			method : 'POST',
-			data : {
-				productId : productId
-			},
-			success : function(response) {
-				console.log(response);
-				location.reload();
-			},
-			error : function(error) {
-				console.error('Error removing cart item:', error);
-			}
-		});
-	}
+        // Function to update quantity using Ajax
+        function handleEnterKey(event, productId, inputElement) {
+    if (event.key === 'Enter') {
+        // Ngăn chặn hành động mặc định của phím Enter trên ô nhập số
+        event.preventDefault();
+        
+        // Gọi hàm validateAndUpdateQuantity khi nhấn phím Enter
+        validateAndUpdateQuantity(productId, inputElement);
+    }
+}
+
+        function validateAndUpdateQuantity(productId, inputElement) {
+    var newQuantity = inputElement.value;
+
+    // Kiểm tra nếu newQuantity không phải là số hoặc là số âm
+    if (isNaN(newQuantity) || newQuantity < 0) {
+        alert('Please enter a valid positive number.');
+        // Đặt lại giá trị về giá trị trước đó
+        inputElement.value = inputElement.getAttribute('data-prev-value') || 1;
+        return;
+    }
+    var maxQuantity = parseInt(inputElement.getAttribute('max'));
+    if (newQuantity > maxQuantity) {
+        alert('Quantity cannot exceed the maximum allowed value: ' + maxQuantity);
+        // Đặt lại giá trị về giá trị trước đó
+        inputElement.value = inputElement.getAttribute('data-prev-value') || 1;
+        return;
+    }
+    // Lưu giữ giá trị trước đó để có thể đặt lại nếu cần thiết
+    inputElement.setAttribute('data-prev-value', newQuantity);
+
+    // Gọi hàm updateQuantity nếu newQuantity hợp lệ
+    updateQuantity(productId, newQuantity);
+}
+        
+        function updateQuantity(productId, newQuantity) {
+            $.ajax({
+                url: 'updateQuantity', // Replace with your CartController URL
+                method: 'POST',
+                data: {
+                    productId: productId,
+                    newQuantity: newQuantity
+                },
+                success: function(response) {
+                    // Update the cart display or handle success as needed
+                    console.log(response);
+                    location.reload();
+                },
+                error: function(error) {
+                    console.error('Error updating quantity:', error);
+                }
+            });
+        }
+        function removeCartItem(productId) {
+            $.ajax({
+                url: 'removeCartItem', 
+                method: 'POST',
+                data: {
+                    productId: productId
+                },
+                success: function (response) {         
+                    console.log(response);
+                    location.reload();
+                },
+                error: function (error) {
+                    console.error('Error removing cart item:', error);
+                }
+            });
+        }
+        
 </script>
 <!-- Breadcrumb Section Begin -->
 <section class="breadcrumb-option">
@@ -89,29 +124,27 @@
 								<td class="product__cart__item">
 									<div class="product__cart__item__pic">
 										<img src="img/product/<%=cartItem.getProduct().getImg()%>"
-											alt="" style="width: 70px;height: 70px;">
+											alt="" style="width: 70px; height: 70px;">
 									</div>
 									<div class="product__cart__item__text">
 										<h6><%=cartItem.getProduct().getProductName()%></h6>
-										<h5><%=cartItem.getPrice() * cartItem.getQuantity()%></h5>
+										<h5><%=cartItem.getProduct().getPrice()%></h5>
 									</div>
 								</td>
-
 								<td class="quantity__item">
 									<div class="quantity">
-										<div class="pro-qty-2">
-											<input id="quantityInputC" name="quantity"
-												class="input_quantity" min="1"
-												max="<%=cartItem.getProduct().getAmount()%>" type="number"
-												value="<%=cartItem.getQuantity()%>"
-												placeholder="<%=cartItem.getQuantity()%>"
-												oninput="updateQuantity(<%=cartItem.getProduct().getProductID()%>, this.value); " required>
-										</div>
+										<input id="quantityInputC" name="quantity"
+											class="input_quantity" min="1"
+											max="<%=cartItem.getProduct().getAmount()%>" type="number"
+											value="<%=cartItem.getQuantity()%>"
+											placeholder="<%=cartItem.getQuantity()%>"
+											onkeydown="handleEnterKey(event, <%=cartItem.getProduct().getProductID()%>, this);">
 									</div>
 								</td>
 								<td class="cart__price"><%=cartItem.getPrice() * cartItem.getQuantity()%></td>
-								<td class="cart__close"><i class="fa fa-close" style="cursor: pointer;"
-									onclick="removeCartItem(<%=cartItem.getProduct().getProductID()%>)"></i></td>
+								<td class="cart__close"><i class="fa fa-close"
+									onclick="removeCartItem(<%=cartItem.getProduct().getProductID()%>)"></i>
+								</td>
 							</tr>
 							<%
 							total += cartItem.getPrice() * cartItem.getQuantity();

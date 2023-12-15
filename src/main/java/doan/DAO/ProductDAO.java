@@ -7,11 +7,40 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
 import javax.persistence.Persistence;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 
 import doan.model.CategoryModel;
 import doan.model.ProductModel;
 public class ProductDAO {
+	public static void main(String[] args) {
+//		UserDAO dao = new UserDAO();
+//		Usermodel newUser = new Usermodel();
+//		newUser.setUsername("tin");
+//		newUser.setPassword("123");
+//		newUser.setEmail("tin@gmail.com");
+//		newUser.setRole(2);
+//		dao.create(newUser);
+
+//		 update(newUser);
+//		 delete();
+//		findAll();
+//		findById(1);
+//		findByUserName("trongtruong");
+//		updateStatus(4,"2");
+//		isUsernameExists("tin");
+//		newUser.setAddress("abch");
+//		newUser.setFullname("hct");
+//		dao.updateUserData(15, newUser);
+//		isEmailExists("tranthuc@gmail.com");
+//		findByEmail("tranthuc@gmail.com");
+
+//		dao.updatePassword("trong123@gmail.com","Truonghct12@tg");
+//		findByName("áo", 5, 1);
+//		count("áo");
+//		getLatestHotProducts(6);
+//		getsoldPrduct();
+	}
 	public List<ProductModel> getAllProduct() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 		EntityManager em = emf.createEntityManager();
@@ -33,7 +62,24 @@ public class ProductDAO {
 		}
 		return productList;
 	}
+	public int getsoldPrduct() {
+	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
+	    EntityManager em = emf.createEntityManager();
 
+	    try {
+	        String jpql = "SELECT SUM(o.Sold) FROM ProductModel o";
+	        TypedQuery<Long> query = em.createQuery(jpql, Long.class);
+	        Long totalAmount = query.getSingleResult();
+	        System.out.println(totalAmount);
+	        return totalAmount != null ? totalAmount.intValue() : 0;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return 0;
+	    } finally {
+	        em.close();
+	        emf.close();
+	    }
+	}
 	public List<String> getAllColor() {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 		EntityManager em = emf.createEntityManager();
@@ -56,10 +102,6 @@ public class ProductDAO {
 		return colorList;
 	}
 
-	public static void main(String[] args) {
-//		 getProductById(1);
-//		 getAllColor();
-	}
 
 	public List<ProductModel> getProductById(int proid) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
@@ -86,21 +128,23 @@ public class ProductDAO {
 		return productList;
 	}
 
-	public List<ProductModel> getAllProductByCategory(int cid) {
+	@SuppressWarnings("unchecked")
+	public List<ProductModel> getAllProductByCategory(int cid,int limit,int pages) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 		EntityManager em = emf.createEntityManager();
 		List<ProductModel> productList = new ArrayList<ProductModel>();
+		String jpql = "SELECT * FROM Product__tb WHERE category_id LIKE :cid "
+				+ "ORDER BY ProductID OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY";
 		try {
-			String jpql = "SELECT o FROM ProductModel o Where o.category_id = :cid ";
-			TypedQuery<ProductModel> query = em.createQuery(jpql, ProductModel.class);
-			query.setParameter("cid", cid);
-
-			productList = query.getResultList();
-
-			/*
-			 * for(ProductModel us :productList) { System.out.println( us.getProductID());
-			 * System.out.println( us.getProductName()); }
-			 */
+			int offset = (pages - 1) * limit;
+			Query nativeQuery = em.createNativeQuery(jpql, ProductModel.class);
+			nativeQuery.setParameter("cid", cid); // Thêm % vào tham số
+	        nativeQuery.setParameter("limit", limit);
+	        nativeQuery.setParameter("offset", offset);
+	        productList = nativeQuery.getResultList();
+//	         for (ProductModel product : productList) {
+//	             System.out.println("Username: " + product.getProductID() + ", Fullname: " + product.getColor());
+//	         }
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
@@ -109,7 +153,28 @@ public class ProductDAO {
 		}
 		return productList;
 	}
+	public long countCategory_id(int product) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
+		EntityManager em = emf.createEntityManager();
 
+		try {
+			// Native SQL query
+			String sql = "SELECT COUNT(*) FROM Product__tb WHERE category_id LIKE :Product ";
+
+			Query countQuery = em.createNativeQuery(sql);
+			countQuery.setParameter("Product", "%" + product + "%");
+			long result = ((Number) countQuery.getSingleResult()).longValue();
+			System.out.println("Count of products with name like : " + result);
+			return ((Number) countQuery.getSingleResult()).longValue();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+			emf.close();
+		}
+
+		return 0;
+	}
 	public List<ProductModel> getAllProductBySupplier(int supid) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 		EntityManager em = emf.createEntityManager();
@@ -283,31 +348,54 @@ public class ProductDAO {
 		return categoryList;
 	}
 
-	public List<ProductModel> findByName(String productName) {
+	@SuppressWarnings("unchecked")
+	public List<ProductModel> findByName(String productName,int limit,int pages) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 		EntityManager em = emf.createEntityManager();
 		List<ProductModel> productList = new ArrayList<>();
-		String jpql = "SELECT p FROM ProductModel p WHERE p.ProductName LIKE :ProductName";
-
-		TypedQuery<ProductModel> query = em.createQuery(jpql, ProductModel.class);
-
+		String jpql = "SELECT * FROM Product__tb WHERE (ProductName LIKE :ProductName OR Seotitle LIKE :ProductName)"
+				+ "ORDER BY ProductID OFFSET :offset ROWS FETCH NEXT :limit ROWS ONLY";
 		try {
-			query.setParameter("ProductName", "%" + productName + "%"); // Thêm % vào tham số
-			productList = query.getResultList();
-//	        for(ProductModel us :productList) { System.out.println( us.getProductName());
-//			  }
-//	        em.getTransaction().commit();//chấp nhận kết quả thao tác
+			int offset = (pages - 1) * limit;
+			Query nativeQuery = em.createNativeQuery(jpql, ProductModel.class);
+			nativeQuery.setParameter("ProductName", "%" + productName + "%"); // Thêm % vào tham số
+	        nativeQuery.setParameter("limit", limit);
+	        nativeQuery.setParameter("offset", offset);
+	        productList = nativeQuery.getResultList();
+//	         for (ProductModel product : productList) {
+//	             System.out.println("Username: " + product.getProductID() + ", Fullname: " + product.getColor());
+//	         }
 		} catch (Exception e) {
-//	        e.printStackTrace();
+	        e.printStackTrace();
 //	        System.out.println("Không tìm thấy sản phẩm với tên: " + productName);
 		} finally {
 			em.close();
 			emf.close();
 		}
-
 		return productList;
 	}
+	public long count(String productName) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
+		EntityManager em = emf.createEntityManager();
 
+		try {
+			// Native SQL query
+			String sql = "SELECT COUNT(*) FROM Product__tb WHERE ProductName LIKE :ProductName ";
+
+			Query countQuery = em.createNativeQuery(sql);
+			countQuery.setParameter("ProductName", "%" + productName + "%");
+//			long result = ((Number) countQuery.getSingleResult()).longValue();
+//			System.out.println("Count of products with name like '" + productName + "': " + result);
+			return ((Number) countQuery.getSingleResult()).longValue();
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			em.close();
+			emf.close();
+		}
+
+		return 0;
+	}
 	public void addProduct(ProductModel newProduct) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 		EntityManager entityManager = emf.createEntityManager();
@@ -379,7 +467,7 @@ public class ProductDAO {
 
 	}
 
-	public void updateProduct(ProductModel Product) {
+	public void updateProduct(int product, ProductModel Product) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 		EntityManager entityManager = emf.createEntityManager();
 		EntityTransaction transaction = null;
@@ -388,7 +476,7 @@ public class ProductDAO {
 			transaction = entityManager.getTransaction();
 			transaction.begin();
 
-			ProductModel existingProduct = entityManager.find(ProductModel.class, Product.getProductID());
+			ProductModel existingProduct = entityManager.find(ProductModel.class, product);
 
 			if (existingProduct != null) {
 				// Cập nhật thông tin sản phẩm từ updatedProduct vào existingProduct
@@ -491,5 +579,31 @@ public class ProductDAO {
 			emf.close();
 		}
 		return productList;
+	}
+	public List<ProductModel> getLatestHotProducts(int limit) {
+	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
+	    EntityManager em = emf.createEntityManager();
+		List<ProductModel> productList = new ArrayList<>();
+	    try {
+	        String jpql = "SELECT p FROM ProductModel p WHERE p.Status = true ORDER BY p.Hot DESC";
+	        TypedQuery<ProductModel> query = em.createQuery(jpql, ProductModel.class);
+	        query.setMaxResults(limit);
+	        productList = query.getResultList();
+//	        for (ProductModel product : productList) {
+//	            System.out.println("ProductID: " + product.getProductID() +
+//	                               ", ProductName: " + product.getProductName() +
+//	                               ", Price: " + product.getPrice() +
+//	                               ", Hot: " + product.isHot());
+//	            // Add more fields as needed
+//	        }
+
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        // Handle exceptions if needed
+	    } finally {
+	        em.close();
+	        emf.close();
+	    }
+	    return productList;
 	}
 }

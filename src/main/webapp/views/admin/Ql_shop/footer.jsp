@@ -37,6 +37,7 @@
 	}
 	%>
 </c:if>
+
 <c:if test="${not empty USER }">
 	<jsp:include page="/views/progress/index.jsp"></jsp:include>
 </c:if>

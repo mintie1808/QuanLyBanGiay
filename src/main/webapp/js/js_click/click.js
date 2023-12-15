@@ -210,6 +210,7 @@ document.addEventListener('DOMContentLoaded', function() {
 				'.showSweetAlert',
 				'.sa-success',
 				'.h2_sweet-alert',
+				'.p_sweet-alert',
 				'.div_sweet-alert_1'
 			]);
 

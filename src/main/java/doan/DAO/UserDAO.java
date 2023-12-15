@@ -39,7 +39,6 @@ public class UserDAO {
 //		findByEmail("tranthuc@gmail.com");
 
 //		dao.updatePassword("trong123@gmail.com","Truonghct12@tg");
-		findOrdersDetail(1);
 	}
 
 	public Usermodel create(Usermodel newUser) {
@@ -119,7 +118,7 @@ public class UserDAO {
 		// Trả về danh sách đơn đặt hàng của khách hàng có CustomerID là 1
 		return orderList;
 	}
-	public static List<OrderDetailModel> findOrdersDetail(int orderID) {
+	public List<OrderDetailModel> findOrdersDetail(int orderID) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 		// Tạo EntityManager để bắt đầu làm việc với CSDL
 		EntityManager em = emf.createEntityManager();
@@ -135,10 +134,10 @@ public class UserDAO {
 
 			// Truy vấn
 			orderList = query.getResultList();
-//		for (OrderDetailModel product : orderList) {
-//		System.out.println("Username: " + product.getPaymentMethod() + ", Fullname: " + product.getProductID());
-//		// Add more fields as needed
-//	}
+		for (OrderDetailModel product : orderList) {
+		System.out.println("Username: " + product.getPaymentMethod() + ", Fullname: " + product.getProductID());
+		// Add more fields as needed
+	}
 		} catch (Exception e) {
 			// Xử lý ngoại lệ nếu cần
 			e.printStackTrace();
@@ -229,26 +228,18 @@ public class UserDAO {
 
 	public Usermodel findById(int id) {
 		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
-		// Tạo EntityManager để bắt đầu làm việc với CSDL
 		EntityManager em = emf.createEntityManager();
-		Usermodel foundUser = null;
+		Usermodel user = null;
 
 		try {
-			em.getTransaction().begin(); // Bắt đầu Transaction
-			// MÃ THAO TÁC
-			String jpql = "SELECT o FROM Usermodel o WHERE o.id = :id";
-			// Tạo đối tượng truy vấn
-			TypedQuery<Usermodel> query = em.createQuery(jpql, Usermodel.class);
-			query.setParameter("id", id); // Đặt tham số trong truy vấn
-			foundUser = query.getSingleResult(); // Lấy kết quả của truy vấn
-			em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+			user = em.find(Usermodel.class, id);
 		} catch (Exception e) {
-//	        e.printStackTrace(); 
+			e.printStackTrace();
 		} finally {
 			em.close();
 			emf.close();
 		}
-		return foundUser;
+		return user;
 	}
 
 	public Usermodel findByUserName(String user) {

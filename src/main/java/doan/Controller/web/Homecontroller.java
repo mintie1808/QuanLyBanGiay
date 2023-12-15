@@ -8,6 +8,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
 import java.io.IOException;
+import java.util.List;
+
+import doan.DAO.ProductDAO;
+import doan.model.ProductModel;
 
 
 /**
@@ -36,6 +40,9 @@ public class Homecontroller extends HttpServlet {
 		if (pageParam != null) {
 			request.setAttribute("page", pageParam);
 		}
+		ProductDAO dao = new ProductDAO();
+		List<ProductModel> listhot = dao.getLatestHotProducts(8);
+		request.setAttribute("listhot", listhot);
 		String pageToInclude = "/views/web/home.jsp";
 		RequestDispatcher rd = request.getRequestDispatcher(pageToInclude);
 		rd.forward(request, response);

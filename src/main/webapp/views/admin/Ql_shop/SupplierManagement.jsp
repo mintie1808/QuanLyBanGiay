@@ -12,118 +12,6 @@
 </div>
 
 <div class="container-fluid">
-	<div class="row">
-		<div class="col-10">
-			<h4 class="d-inline">Supplier</h4>
-			<p class="text-muted"></p>
-		</div>
-		<!-- Add Product Form -->
-		<div class="col-lg-10">
-			<div class="card">
-				<div class="card-body">
-					<div class="text-center">
-						<form action="./admin-Supplier" method="post">
-							<%-- <c:choose>
-						<c:when test="${disabled == 'disabled' }"></c:when>
-						<c:otherwise test="${product == 'product' }"></c:otherwise></c:choose> --%>
-
-							<div class="row">
-								<!-- 3 ô bên trái -->
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="supplierName"><b>Supplier Name:</b></label> <input
-											type="text" class="form-control" name="supplierName"
-											value="${supplier.supplierName}" required>
-									</div>
-								</div>
-
-								<div class="col-md-4">
-									<div class="form-group">
-										<label for="productSupplier"><b>Product Supplied:</b></label>
-										<input type="text" class="form-control"
-											name="productsSupplied" value="${supplier.productsSupplied}"
-											required>
-									</div>
-								</div>
-
-								<div class="col-md-2">
-									<div class="form-group">
-										<label for="paymentTerms"><b>Payment Terms:</b></label> <input
-											type="text" class="form-control" name="paymentTerms"
-											value="${supplier.paymentTerms}" required>
-									</div>
-								</div>
-								<!-- Kết thúc 3 ô bên trái -->
-
-
-							</div>
-
-							<div class="form-row">
-
-								<div class="col-md-8">
-									<div class="form-group">
-										<label for="address"><b>Address:</b></label>
-										<textarea class="form-control" name="address">${supplier.address}</textarea>
-									</div>
-								</div>
-								<c:if test="${not empty supplier.supplierID }">
-									<div class="col-md-2">
-										<div class="form-group">
-											<label for="supplierID"><b>Supplier ID:</b></label> <input
-												type="number" class="form-control" name="supplierID"
-												value="${supplier.supplierID}" readonly>
-										</div>
-									</div>
-								</c:if>
-							</div>
-
-
-							<div class="form-row">
-								<div class="col-md-6">
-									<c:choose>
-										<c:when test="${disabled == 'disabled' }">
-											<button type="submit" class="btn btn-success" name="action"
-												value="add" disabled>Add Supplier</button>
-										</c:when>
-										<c:otherwise>
-											<button type="submit" class="btn btn-success" name="action"
-												value="add">Add Supplier</button>
-										</c:otherwise>
-									</c:choose>
-								</div>
-								<div class="col-md-6">
-									<button type="submit" class="btn btn-primary" name="action"
-										value="update">Update Supplier</button>
-								</div>
-							</div>
-						</form>
-
-
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<%--  <!-- Display Products -->
-        <c:forEach var="product" items="${listP}">
-            <div class="col-lg-3 col-sm-6">
-                <div class="card">
-                    <div class="card-body">
-                        <div class="text-center">
-                            <h5 class="mt-3 mb-1">${product.productName}</h5>
-                            <p class="m-0">${product.price}</p>
-                            <form action="ProductServlet" method="post">
-                                <input type="hidden" name="action" value="delete">
-                                <input type="hidden" name="productId" value="${product.productID}">
-                                <button type="submit" class="btn btn-sm btn-danger">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </c:forEach> --%>
-
-	</div>
 	<!--END Admin & Seller -->
 
 	<div class="row">
@@ -167,7 +55,7 @@
 										<!-- số saản phẩm nhà cc đã cc -->
 										<th>PaymentTerms</th>
 										<th class="th_ul_user-status" data-content-before="Address"
-											style="height: 46px;width: 178px;"></th>
+											style="height: 46px; width: 178px;"></th>
 									</tr>
 								</thead>
 								<tbody>
@@ -176,7 +64,7 @@
 									<c:forEach var="supplier" items="${listS}">
 										<c:set var="b" value="${b+1 }" />
 										<tr class="tr_listuser" style="height: 59px;">
-											<td class="td_userma" >
+											<td class="td_userma">
 												<div
 													class="d-flex justify-content-center align-items-center checkbox_div">
 													<input type="checkbox" value="${supplier.supplierID }"
@@ -202,7 +90,7 @@
 											<td class="td_ul_user">
 												<ul style="margin-bottom: 0;">
 													<li>
-														<form action="./admin-Supplier" method="get"
+														<form action="./admin-Supplier" method="post"
 															id="editForm">
 															<input type="hidden" name="action" value="delete">
 															<input type="hidden" name="supplierID"
@@ -222,7 +110,7 @@
 											<td class="td_ul_user" style="margin-left: 38px">
 												<ul style="margin-bottom: 0;">
 													<li>
-														<form action="./admin-Supplier" method="get"
+														<form action="./admin-Supplier" method="post"
 															id="deleteForm">
 															<input type="hidden" name="action" value="edit">
 															<input type="hidden" name="supplierID"
@@ -250,63 +138,79 @@
 
 	<!-- end show product -->
 </div>
-<!-- san pham theo supplier -->
-<%-- <div class="card">
-				<div class="card-body">
-					<div class="active-member">
-						<div class="table-responsive">
-							<table class="table table-xs mb-0">
-								<thead>
-									<tr>
-										<th>ID</th>
-										<th>Name</th>
-										<th>Price</th>
-										<th>Edit</th>
-									</tr>
-								</thead>
-								<tbody>
-									<c:set var="c" value="0" />
-									<c:forEach var="product" items="${listP}">
-										<c:choose>
-										<c:when test="${supplier.supplierID == product.supplierID }">
-										<c:set var="c" value="${c+1 }" />
-										<tr>
-											<td>${c}</td>
-											<td><img
-												src="img/shop/product/${empty product.img ? 'product-1.jpg' : product.img}"
-												class="rounded-circle mr-3" alt="">
-												${product.productName} </a></td>
-											<td>${empty product.price ? 'Empty' : product.price}</td>
-											
-											<td>
-												<div class="row">
+<div class="div_background"
+	${empty disabledsup ?'':'style="display:flex;' } tabindex="-1">
+	<div class="s-a show-input_  visible " style="max-height: 465px;">
+		<div class="s-a-close">
+			<div class="s-a-close_div-i">
+				<c:choose>
+					<c:when test="${not empty disabledsup }">
+						<a href="./admin-Supplier"> <i class="icon-close"></i>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<i class="icon-close"></i>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+		<form action="./admin-Supplier" method="post">
+			<div class="pr-4 pl-4">
+				<div class="row">
+					<div class="col-6">
+						<label class="col-form-label s-a-label" for="suppliername:">Supplier
+							Name: </label>
+						<fieldset>
+							<input type="text" class="form-control" name="supplierName"
+								value="${supplier.supplierName}" required>
+							<div class="sa-input-error"></div>
+						</fieldset>
+					</div>
+					<div class="col-6">
+						<label class="col-form-label s-a-label" for="productsupplied">Product
+							Supplied </label>
+						<fieldset>
+							<input type="text" class="form-control" name="productsSupplied"
+								value="${supplier.productsSupplied}" required>
+							<div class="sa-input-error"></div>
+						</fieldset>
 
-													<form action="./productedit" method="post" id="editForm">
-														<input type="hidden" name="action" value="edit"> <input
-															type="hidden" name="productId"
-															value="${product.productID}">
-														<button type="submit" class="btn btn-sm btn-danger">Edit</button>
-													</form>
-
-													<div class="col mx-0.5">
-														<form action="./productedit" method="post" id="deleteForm">
-															<input type="hidden" name="action" value="delete">
-															<input type="hidden" name="productId"
-																value="${product.productID}">
-															<button type="submit" class="btn btn-sm btn-danger">Delete</button>
-														</form>
-													</div>
-												</div>
-
-
-
-											</td>
-										</tr>
-										</c:when></c:choose>
-									</c:forEach>
-								</tbody>
-							</table>
-						</div>
 					</div>
 				</div>
-			</div> --%>
+				<div class="row">
+					<div class="col-6">
+						<label class="col-form-label s-a-label" for="paymentTerms">Payment
+							Terms </label>
+						<fieldset>
+							<input type="text" class="form-control" name="paymentTerms"
+								value="${supplier.paymentTerms}" required>
+							<div class="sa-input-error"></div>
+						</fieldset>
+					</div>
+				</div>
+				<div class="row">
+					<label for="exampleFormControlTextarea1" class="form-label">Address
+					</label>
+					<textarea class="form-control" id="exampleFormControlTextarea1"
+						rows="3" name="address">${supplier.address}</textarea>
+				</div>
+				<div>
+					<c:choose>
+						<c:when test="${not empty disabledsup }">
+							<input type="hidden" name="action" value="update">
+							<input type="hidden" name="updatesupplier"
+								value="${supplier.supplierID }">
+							<button type="submit" class="_btn-ep sl-img-ep-btn">Update</button>
+						</c:when>
+						<c:otherwise>
+							<input type="hidden" name="action" value="add">
+							<button type="submit" class="_btn-ep sl-img-ep-btn">Submit</button>
+						</c:otherwise>
+					</c:choose>
+
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>

@@ -22,8 +22,8 @@
 	href="plugins/chartist-plugin-tooltips/css/chartist-plugin-tooltip.css">
 <!-- Custom Stylesheet -->
 <link href="css/admin/style.css" rel="stylesheet">
-<link href="css/admin/css__.css" rel="stylesheet">
 <link href="css/progress/css.css" rel="stylesheet">
+<link href="css/admin/css__.css" rel="stylesheet">
 <link href="css/admin/sweetalert/css/sweetalert.css">
 <link href="./plugins/summernote/dist/summernote.css" rel="stylesheet">
 </head>

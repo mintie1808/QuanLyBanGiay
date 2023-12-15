@@ -13,6 +13,7 @@ import doan.model.ProductModel;
 import doan.model.SupplierModel;
 
 
+
 public class SupplierDAO {
 	public SupplierModel findById(int SupplierID) {
 	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
@@ -99,51 +100,28 @@ public class SupplierDAO {
 	        em.close();
 	    }
 	}
-	
-	public void deleteSupplierById(int supplierId,int sp) {
-	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
-	    EntityManager em = emf.createEntityManager();
-	    EntityTransaction transaction = null;
+	public void deleteSupplierById(int id) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
+		EntityManager em = emf.createEntityManager();
 
-	    try {
-	        transaction = em.getTransaction();
-	        transaction.begin();
+		try {
+			em.getTransaction().begin(); // Bắt đầu Transaction
+			SupplierModel foundUser = em.find(SupplierModel.class, id); // Tìm kiếm đối tượng cần xóa
 
-	        // Tìm nhà cung cấp theo ID
-	        SupplierModel supplierToDelete = em.find(SupplierModel.class, supplierId);
-
-	        if (sp != 0) {
-	            // Tìm tất cả sản phẩm liên quan có supplierID tương ứng
-	            List<ProductModel> productsToDelete = em
-	                    .createQuery("SELECT p FROM ProductModel p WHERE p.supplierID = :supplierId", ProductModel.class)
-	                    .setParameter("supplierId", supplierId)
-	                    .getResultList();
-
-	            // Xóa từng sản phẩm liên quan
-	            for (ProductModel product : productsToDelete) {
-	                em.remove(product);
-	            }
-
-	            // Xóa nhà cung cấp
-	            em.remove(supplierToDelete);
-	        }
-	        else {
-	        	em.remove(supplierToDelete);
-	        }
-	        
-	        transaction.commit();
-	    } catch (Exception e) {
-	        if (transaction != null && transaction.isActive()) {
-	            // Rollback giao dịch nếu có ngoại lệ
-	            transaction.rollback();
-	        }
-	        e.printStackTrace();
-	    } finally {
-	        em.close();
-	    }
+			if (foundUser != null) {
+				em.remove(foundUser); // Xóa đối tượng
+				em.getTransaction().commit(); // Chấp nhận kết quả thao tác
+			}
+		} catch (Exception e) {
+			e.printStackTrace();
+			em.getTransaction().rollback(); // Rollback nếu có lỗi
+		} finally {
+			em.close();
+			emf.close();
+		}
 	}
 
-	public void updateSupplier(SupplierModel updatedSupplier) {
+	public void updateSupplier(int Supplier, SupplierModel updatedSupplier) {
 	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
 	    EntityManager entityManager = emf.createEntityManager();
         EntityTransaction transaction = null;
@@ -153,7 +131,7 @@ public class SupplierDAO {
             transaction.begin();
 
             // Tìm nhà cung cấp cần cập nhật trong cơ sở dữ liệu
-            SupplierModel existingSupplier = entityManager.find(SupplierModel.class, updatedSupplier.getSupplierID());
+            SupplierModel existingSupplier = entityManager.find(SupplierModel.class, Supplier);
 
             if (existingSupplier != null) {
                 // Cập nhật thông tin nhà cung cấp
@@ -197,5 +175,32 @@ public class SupplierDAO {
 			emf.close();
 		}
 	}
+	public void deleteProductsBySupplierID(int supplierID) {
+		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
+        EntityManager em = emf.createEntityManager();
+        EntityTransaction transaction = em.getTransaction();
+        try {
+            transaction.begin();
 
+            // Lấy danh sách sản phẩm có SupplierID cụ thể
+            String jpql = "SELECT o FROM ProductModel o WHERE o.SupplierID = :supplierID";
+            List<ProductModel> productsToDelete = em.createQuery(jpql, ProductModel.class)
+                    .setParameter("supplierID", supplierID)
+                    .getResultList();
+
+            // Xóa các sản phẩm từ danh sách
+            for (ProductModel product : productsToDelete) {
+                em.remove(product);
+            }
+
+            transaction.commit();
+        } catch (Exception e) {
+            if (transaction != null && transaction.isActive()) {
+                transaction.rollback();
+            }
+            e.printStackTrace();
+        } finally {
+            em.close();
+        }
+    }
 }

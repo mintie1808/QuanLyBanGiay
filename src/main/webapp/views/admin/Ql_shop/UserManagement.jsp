@@ -103,7 +103,7 @@
 								<tbody>
 
 									<c:forEach var="user" items="${listUser}">
-										<c:if test="${user.role != 1 && user.role != 2}">
+										<c:if test="${user.id != 1}">
 											<%-- 	<a href="${user.id }"> </a> --%>
 											<tr class="tr_listuser">
 												<td class="td_userma">
@@ -150,7 +150,6 @@
 																	style="border: 0; cursor: pointer;">
 																	<div class="div_i_hover">
 																		<i class="fa fa-trash"></i>
-
 																	</div>
 																</button>
 															</form>
@@ -161,7 +160,7 @@
 													<ul style="margin-bottom: 0;">
 														<li>
 															<form action="./admin-user" method="post">
-																<input type="hidden" name="edit" value="delete">
+																<input type="hidden" name="action" value="edit">
 																<input type="hidden" name="userIdToDelete"
 																	value="${user.id}">
 																<button type="submit" class="" name="bttn_delete"
@@ -182,7 +181,137 @@
 						</div>
 					</div>
 				</div>
-				<%-- <div class="bootstrap-pagination">
+			
+			</div>
+
+		</div>
+
+	</div>
+</div>
+<div class="div_background"
+	${empty status ?'':'style="display:flex;' } tabindex="-1">
+	<div class="s-a show-input_  visible ">
+		<div class="s-a-close">
+			<div class="s-a-close_div-i">
+				<c:choose>
+					<c:when test="${not empty status }">
+						<a href="./admin-user"> <i class="icon-close"></i>
+						</a>
+					</c:when>
+					<c:otherwise>
+						<i class="icon-close"></i>
+					</c:otherwise>
+				</c:choose>
+			</div>
+		</div>
+		<form action="./admin-user" method="post"
+			enctype="multipart/form-data">
+			<div class="mx-auto text-center" style="padding-bottom: 10px;">
+				<div class="mx-auto text-center">
+					<div class="img_sl-img-ep">
+						<img
+							src="img/user/${ empty listuseredit.img ? 'Avatar_trang.jpg' : listuseredit.img}"
+							alt="Avatar" class="img-fluid sl_img-ep_avatar-img"
+							id="avatarImage">
+					</div>
+					<div class="text-sl_img-ep" id="fileNameDisplay">No file
+						selected</div>
+					<div class="mt-text-sl_img-ep">
+						<input type="file" id="fileInput" name="fileInput" class="d-none" value="${listuseredit.img }">
+						<button type="button" class="_btn-ep sl_btn">Select Image</button>
+					</div>
+				</div>
+			</div>
+			<hr class="my-2">
+			<div class="pr-4 pl-4">
+				<div class="row">
+					<div class="col-6">
+						<label class="col-form-label s-a-label" for="val-username">Username
+						</label>
+						<fieldset>
+							<input type="text" tabindex="3" placeholder="Username"
+								autocomplete="off" name="username"
+								value="${listuseredit.username }" required>
+							<div class="sa-input-error"></div>
+						</fieldset>
+					</div>
+					<div class="col-6">
+						<label class="col-form-label s-a-label" for="val-fullname">Fullname
+						</label>
+						<fieldset>
+
+							<input type="text" tabindex="3" name="fullname"
+								value="${listuseredit.fullname }" placeholder="Fullname"
+								name="fullname" autocomplete="off" required>
+							<div class="sa-input-error"></div>
+						</fieldset>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="col-6">
+						<label class="col-form-label s-a-label" for="val-email">Email
+						</label>
+						<fieldset>
+							<input type="email" tabindex="3" placeholder="Email" name="email"
+								autocomplete="off" value="${listuseredit.email}" required>
+							<div class="sa-input-error"></div>
+						</fieldset>
+					</div>
+					<div class="col-6">
+						<label class="col-form-label s-a-label" for="val-address">Address
+						</label>
+						<fieldset>
+							<input type="text" tabindex="3" placeholder="Address"
+								name="address" autocomplete="off"
+								value="${listuseredit.address }" required>
+							<div class="sa-input-error"></div>
+						</fieldset>
+
+					</div>
+				</div>
+				<div class="row">
+					<div class="form-group col-6" style="margin-bottom: 0;">
+						<label class="col-form-label s-a-label" for="val-role">Role
+						</label> <select class="form-control form-select" name="select_role" >
+							<c:forEach var="role" items="${listrole}">
+								<option value="${role.roleID}"
+									${role.roleID == listuseredit.role ? 'selected' : ''}>${role.name}</option>
+							</c:forEach>
+						</select>
+					</div>
+					<div class="col-6">
+						<label class="col-form-label s-a-label" for="val-phone">Phone
+						</label>
+						<fieldset>
+							<input type="number" tabindex="3" placeholder="Phone" name="phone"
+								autocomplete="off" value="${listuseredit.phone }" required>
+							<div class="sa-input-error"></div>
+						</fieldset>
+
+					</div>
+				</div>
+				<div>
+					<c:choose>
+						<c:when test="${not empty status }">
+							<input type="hidden" name="action" value="update">
+							<input type="hidden" name="updateuser" value="${listuseredit.id }"> 
+							<button type="submit" class="_btn-ep sl-img-ep-btn">Update</button>
+						</c:when>
+						<c:otherwise>
+							<input type="hidden" name="action" value="add">
+							<button type="submit" class="_btn-ep sl-img-ep-btn">Submit</button>
+						</c:otherwise>
+					</c:choose>
+
+				</div>
+
+			</div>
+		</form>
+	</div>
+</div>
+<!-- END  row_Customers-->
+	<%-- <div class="bootstrap-pagination">
 					<c:if test="${totalpage > 1}">
 						<nav>
 							<ul class="pagination justify-content-center">
@@ -242,204 +371,3 @@
 						</nav>
 					</c:if>
 				</div> --%>
-			</div>
-
-		</div>
-
-	</div>
-</div>
-<style>
-.div_background {
-	opacity: 1.09;
-	z-index: 99999;
-	display: flex;
-	justify-content: center;
-	position: absolute;
-	min-width: 434px;
-}
-
-.s-a {
-	display: block;
-	position: relative;
-	margin-top: 12px;
-	top: 5px;
-	overflow: auto;
-	max-height: 720px;
-	padding: 0 17px 17px 17px;
-	width: 800px;
-	left: 0;
-	margin-left: 0;
-}
-
-.s-a-close {
-	position: sticky;
-	top: 0;
-	z-index: 2;
-	background: #fff;
-	text-align: right;
-	z-index: 2;
-}
-
-.s-a-close_div-i {
-	font-size: 27px;
-	display: flex;
-	justify-content: right;
-	align-items: center;
-	padding: 10px;
-}
-
-.s-a-close_div-i i {
-	height: 26px;
-	border-radius: 50%;
-}
-
-.s-a-close_div-i i:hover {
-	background: red;
-	cursor: pointer;
-	color: #fff;
-}
-
-.s-a-label {
-	display: flex;
-	justify-content: left;
-}
-
-.form-select {
-	display: block;
-	width: 100%;
-	padding: .375rem 2.25rem .375rem .75rem;
-	-moz-padding-start: calc(0.75rem - 3px);
-	font-size: 1rem;
-	font-weight: 400;
-	line-height: 1.5;
-	color: #212529;
-	background-color: #fff;
-	background-repeat: no-repeat;
-	background-position: right .75rem center;
-	background-size: 16px 12px;
-	border: 1px solid #ced4da;
-	border-radius: .25rem;
-	transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
-	margin-top: 10px;
-	margin-bottom: 17px;
-}
-
-.form-control:focus {
-	border-color: #d7d7d7;
-}
-
-.sweet-alert button.sl_btn {
-	font-size: 15px;
-	color: #8CD4F5;
-	background-color: transparent;
-	background-image: none;
-	border-color: #8CD4F5;
-	border: 1px solid #8CD4F5;
-}
-
-.sweet-alert button.sl_btn:hover {
-	background: #8CD4F5;
-	color: #fff;
-	border-color: #8CD4F5;
-}
-
-.sweet-alert button:hover {
-	background-color: #96DEFD;
-}
-</style>
-<div class="sweet-overlay div_background" tabindex="-1" style="">
-	<div class="sweet-alert show-input showSweetAlert visible s-a" style="">
-		<div class="s-a-close" style="">
-			<div class="s-a-close_div-i" style="">
-				<i class="icon-close"></i>
-			</div>
-		</div>
-		<form action="./admin-user" method="post" enctype="multipart/form-data">
-			<div class="mx-auto text-center" style="padding-bottom: 10px;">
-				<div class="mx-auto text-center">
-					<div class="img_sl-img-ep">
-						<img src="img/user/Avatar_trang.jpg" alt="Avatar"
-							class="img-fluid sl_img-ep_avatar-img" id="avatarImage">
-					</div>
-					<div class="text-sl_img-ep" id="fileNameDisplay">No file
-						selected</div>
-					<div class="mt-text-sl_img-ep">
-						<input type="file" id="fileInput" name="fileInput" class="d-none">
-						<button type="button" class="_btn-ep sl_btn">Select Image</button>
-					</div>
-				</div>
-			</div>
-			<hr class="my-2">
-			<div class="pr-4 pl-4">
-				<div class="row">
-					<div class="col-6">
-						<label class="col-form-label s-a-label" for="val-username">Username
-						</label>
-						<fieldset>
-							<input type="text" tabindex="3" placeholder="Username"
-								autocomplete="off" name="username">
-							<div class="sa-input-error"></div>
-						</fieldset>
-					</div>
-					<div class="col-6">
-						<label class="col-form-label s-a-label" for="val-fullname">Fullname
-						</label>
-						<fieldset>
-
-							<input type="text" tabindex="3" name="fullname" value=""
-								placeholder="Fullname" name="fullname" autocomplete="off">
-							<div class="sa-input-error"></div>
-						</fieldset>
-
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-6">
-						<label class="col-form-label s-a-label" for="val-email">Email
-						</label>
-						<fieldset>
-							<input type="text" tabindex="3" placeholder="Email" name="email"
-								autocomplete="off">
-							<div class="sa-input-error"></div>
-						</fieldset>
-					</div>
-					<div class="col-6">
-						<label class="col-form-label s-a-label" for="val-address">Address
-						</label>
-						<fieldset>
-							<input type="text" tabindex="3" placeholder="Address"
-								name="address" autocomplete="off">
-							<div class="sa-input-error"></div>
-						</fieldset>
-
-					</div>
-				</div>
-				<div class="row">
-					<div class="form-group col-6" style="margin-bottom: 0;">
-						<label class="col-form-label s-a-label" for="val-role">Role
-						</label> <select class="form-control form-select" name="select_role">
-							<option selected disabled>Select Role</option>
-							<c:forEach var="role" items="${listrole}">
-								<option value="${role.roleID }">${role.name}</option>
-							</c:forEach>
-
-						</select>
-					</div>
-					<div class="col-6">
-						<label class="col-form-label s-a-label" for="val-phone">Phone
-						</label>
-						<fieldset>
-							<input type="text" tabindex="3" placeholder="Phone" name="phone"
-								autocomplete="off">
-							<div class="sa-input-error"></div>
-						</fieldset>
-
-					</div>
-				</div>
-				<input type="hidden" name="action" value="add">
-				<button type="submit" class="_btn-ep sl-img-ep-btn">Submit</button>
-			</div>
-		</form>
-	</div>
-</div>
-<!-- END  row_Customers-->

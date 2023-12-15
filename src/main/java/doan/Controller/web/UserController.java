@@ -18,6 +18,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import doan.DAO.UserDAO;
+import doan.model.OrderDetailModel;
 import doan.model.OrderModel;
 import doan.model.Usermodel;
 import doan.utils.PasswordHashing;
@@ -63,9 +64,15 @@ public class UserController extends HttpServlet {
 	        Usermodel umodel = (Usermodel) session.getAttribute("USER");
 	        if (umodel != null) {
 	            int id = umodel.getId();
-
+	            
 	            List<OrderModel> listorder = dao.findOrdersByCustomerId(id);
-
+	            for (OrderModel order : listorder) {
+	                if (order.getCustomerID() == id) {
+	                	int orderdetail = order.getOrderID();
+	                	List<OrderDetailModel> orderDetailModels = dao.findOrdersDetail(orderdetail);
+	                	request.setAttribute("listOrderdetal", orderDetailModels);
+	                }
+	                }
 
 	            request.setAttribute("listOrder", listorder);
 	        }

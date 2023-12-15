@@ -23,6 +23,9 @@ public class ProductModel {
 	private String Description;
 	private String Detail;
 	private boolean SALE;
+	private String Img;
+	private int Amount;
+	private int Sold;
 	public boolean isHot() {
 		return Hot;
 	}
@@ -38,9 +41,7 @@ public class ProductModel {
 		SALE = sALE;
 	}
 
-	private String Img;
-	private int Amount;
-	private int Sold;
+
 
 	public String getSeotitle() {
 		return Seotitle;

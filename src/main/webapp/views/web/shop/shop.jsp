@@ -64,8 +64,8 @@
 				<div class="shop__sidebar">
 					<div class="shop__sidebar__search">
 						<form action="./shop" method="get">
-							<input type="text" name="textsearchName" autocomplete="off"
-								placeholder="Search...">
+							<input type="text" name="textsearchName" value="${txtsearch }"
+								autocomplete="off" placeholder="Search...">
 							<button type="submit">
 								<span class="icon_search"></span>
 							</button>
@@ -199,7 +199,8 @@
 					<div class="row">
 						<div class="col-lg-6 col-md-6 col-sm-6">
 							<div class="shop__product__option__left">
-								<p>Showing 1–12 of 126 results</p>
+								<p>Showing ${ itemCounts}–${itemcount } of ${tocalrecord }
+									results</p>
 							</div>
 						</div>
 						<div class="col-lg-6 col-md-6 col-sm-6">
@@ -274,6 +275,8 @@
 											</ul>
 										</div>
 										<div class="product__item__text">
+										<h6>${data.productName}</h6>
+										
 											<%-- 											<h6>${data.productName }</h6>
 											<a href="#" class="add-cart">+ Add To Cart</a>
 											<h5>${data.price }</h5>
@@ -303,9 +306,35 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="product__pagination">
-							<a class="active" href="#">1</a> <a href="#">2</a> <a href="#">3</a>
-							<span>...</span> <a href="#">21</a>
+							<c:if test="${totalpage > 1}">
+								<c:forEach var="pageNumber" begin="1" end="${totalpage}"
+									step="1">
+									<c:choose>
+										<c:when test="${pageNumber == itemcount}">
+											<a class="active" href="#">${pageNumber}</a>
+										</c:when>
+										<c:otherwise>
+											<c:choose>
+												<c:when
+													test="${pageNumber <= 2 || pageNumber >= totalpage - 1 || (pageNumber >= itemcount - 1 && pageNumber <= itemcount + 1)}">
+													<a
+														href="./shop?textsearchName=${txtsearch}&pages=${pageNumber}&cid=${cateID }">${pageNumber}</a>
+												</c:when>
+												<c:when test="${pageNumber == 3 && itemcount > 4}">
+													<span>...</span>
+												</c:when>
+												<c:when
+													test="${pageNumber == totalpage - 2 && itemcount < totalpage - 3}">
+													<span>...</span>
+												</c:when>
+											</c:choose>
+										</c:otherwise>
+									</c:choose>
+								</c:forEach>
+							</c:if>
 						</div>
+
+
 					</div>
 				</div>
 			</div>
