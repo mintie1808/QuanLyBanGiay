@@ -202,9 +202,11 @@ public class Authentication extends HttpServlet {
 			HttpSession mySession = request.getSession(false); // Pass false to not create a new session if it doesn't
 			// sending otp
 			if (mySession != null) {
+				
 				Random rand = new Random();
 				otpvalue = rand.nextInt(1255650);
 				String to = em;
+				
 				String subject = "Password Recovery - OTP " + otpvalue;
 
 				String emailContent = "<div style='text-align: center; background: #555555; color: white;'>"
@@ -225,7 +227,7 @@ public class Authentication extends HttpServlet {
 					protected PasswordAuthentication getPasswordAuthentication() {
 						return new PasswordAuthentication("trongtruong0908@gmail.com", "ghoh fnet hndk heid");
 					}
-				});
+				}); 
 				// Gửi thư
 				try {
 					MimeMessage message = new MimeMessage(session);
@@ -247,9 +249,7 @@ public class Authentication extends HttpServlet {
 				response.sendRedirect(request.getContextPath() + "/forgot_password");
 				return;
 			}
-
 		}
-
 	}
 
 	private void handleLogin(HttpServletRequest request, HttpServletResponse response)

@@ -119,16 +119,16 @@
 									<div class="card-body">
 										<div class="shop__sidebar__price">
 											<ul>
-												<li><a href="./shop?pid=0+200000">0-200000</a></li>
-												<li><a href="./shop?pid=200000+300000">200000 -
-														300000</a></li>
-												<li><a href="./shop?pid=300000+500000">300000 -
-														500000</a></li>
-												<li><a href="./shop?pid=500000+top">500000+</a></li>
+												<li><a href="./shop?pid=0+500">0-500</a></li>
+												<li><a href="./shop?pid=500+1000">500 -
+														1000</a></li>
+												<li><a href="./shop?pid=1000+1500">1000 -
+														1500</a></li>
+												<li><a href="./shop?pid=1500+top">1500+</a></li>
 												<li>
 													<form action="./shop?prid=pricerange" method="post">
 														<div style="display: flex;">
-															<input type="number" id="pmin" name="pmin"
+															<input min="0" type="number" id="pmin" name="pmin"
 																autocomplete="off"
 																style="width: 30%; border: 1px solid #222222;" class="">
 															<span style="width: 5%; text-align: center;">-</span> <input
@@ -268,15 +268,13 @@
 											<ul class="product__hover">
 												<li><a href="./shop_details?proid=${data.productID}"><img
 														src="img/shop/icon/search.png" alt=""><span>Search</span></a></li>
-												<li><a href="#"><img
-														src="img/shop/icon/compare.png" alt=""> <span>Compare</span></a></li>
-												<li><a href="#"><img src="img/shop/icon/search.png"
-														alt=""></a></li>
+
 											</ul>
 										</div>
 										<div class="product__item__text">
-										<h6>${data.productName}</h6>
-										
+											<h6>${data.productName}</h6>
+											<h6>Amount - ${data.amount }</h6>
+											<h6>Sold - ${data.sold }</h6>
 											<%-- 											<h6>${data.productName }</h6>
 											<a href="#" class="add-cart">+ Add To Cart</a>
 											<h5>${data.price }</h5>
@@ -287,11 +285,7 @@
 													value="${data.productID}"> <input type="hidden"
 													name="quantity" value="1"> <input type="hidden"
 													name="price" value="${data.price}">
-												<h5>$${data.price }</h5>
-												<%-- 												<h6>${data.productName }</h6>
-												<h6>${data.color}</h6>
-												<h6>Amount: ${data.amount}</h6>
-												<h6>Sold: ${data.sold}</h6> --%>
+												<h5 style="margin-bottom: 5px;">$${data.price }</h5>
 												<!-- 	<a class="add-cart">+ Add To Cart</a> -->
 												<input class="btn btn-primary" type="submit"
 													value="Add to Cart">

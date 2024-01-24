@@ -5,7 +5,7 @@
 	<div class="col p-md-0">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a
-				href="./admin-home?page=supplier_manager">Supplier</a></li>
+				href="./admin-Supplier">Supplier</a></li>
 			<li class="breadcrumb-item active"><a href="./admin-home">Home</a></li>
 		</ol>
 	</div>
@@ -13,7 +13,6 @@
 
 <div class="container-fluid">
 	<!--END Admin & Seller -->
-
 	<div class="row">
 		<div class="col-12">
 			<h4 class="d-inline">Table of Supplier</h4>

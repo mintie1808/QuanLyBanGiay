@@ -438,14 +438,6 @@ document.addEventListener('DOMContentLoaded', function() {
 		});
 	}
 
-	if (div_background) {
-		div_background.addEventListener("click", function(event) {
-			// Kiểm tra xem sự kiện click có phát sinh từ phần tử con của .s-a hay không
-			if (!event.target.closest('.s-a')) {
-				div_background.style.display = "none";
-			}
-		});
-	}
 
 	if (s_a_close_div_i) {
 		s_a_close_div_i.addEventListener("click", function() {
@@ -507,4 +499,21 @@ function deleteSelected(actionUrl) {
 
 	// Gửi form ảo
 	document.getElementById('virtualForm').submit();
+}
+document.addEventListener('DOMContentLoaded', function() {
+	truncateTextForClass('truncate');
+});
+
+function truncateTextForClass(className) {
+	var elements = document.getElementsByClassName(className);
+
+	for (var i = 0; i < elements.length; i++) {
+		var element = elements[i];
+		var text = element.textContent || element.innerText;
+
+		if (text.length > 10) {
+			var truncatedText = text.substring(0, 10) + '...';
+			element.innerText = truncatedText;
+		}
+	}
 }

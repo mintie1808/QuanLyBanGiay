@@ -213,9 +213,7 @@
 
 													<!-- <small class="text-muted">3 days ago</small> -->
 												</div> 
-												<c:forEach items="${listOrderdetal }" var="orderdetail">
-													<p class="mb-1">${orderdetail.ProductID }</p>
-												</c:forEach>
+
 												<p class="mb-1">${data.totalAmount }</p> <small
 												class="text-muted">${ data.status}</small>
 											</a>

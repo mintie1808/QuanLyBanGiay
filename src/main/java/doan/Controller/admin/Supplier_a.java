@@ -13,6 +13,7 @@ import doan.DAO.ProductDAO;
 import doan.DAO.SupplierDAO;
 import doan.model.ProductModel;
 import doan.model.SupplierModel;
+import doan.utils.AccessUtils;
 
 /**
  * Servlet implementation class Supplier_a
@@ -73,6 +74,9 @@ public class Supplier_a extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		if(!AccessUtils.checkUserRole(request, response)){
+			return;
+		}
 		SupplierDAO supdao = new SupplierDAO();
 		List<SupplierModel> Supplier = supdao.getAllSupplier();
 		ProductDAO dao = new ProductDAO();

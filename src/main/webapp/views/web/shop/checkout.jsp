@@ -37,14 +37,14 @@
 						Usermodel u = (Usermodel) s.getAttribute("USER");
 						String arr[] = u.getFullname().split(" ");
 						String lastName = "";
-						String  firstName = "";
-						if(arr.length > 2 ){							
-							lastName = arr[arr.length-1];
-							for(int i = 0 ; i<arr.length-1 ; i ++ ){
+						String firstName = "";
+						if (arr.length > 2) {
+							lastName = arr[arr.length - 1];
+							for (int i = 0; i < arr.length - 1; i++) {
 								firstName += arr[i];
 							}
-						} else if(arr.length == 1 ){
-							firstName = arr[0];
+						} else if (arr.length == 1) {
+							lastName = arr[0];
 						}
 						%>
 						<h6 class="checkout__title">Billing Details</h6>
@@ -52,9 +52,9 @@
 							<div class="col-lg-6">
 								<div class="checkout__input">
 									<p>
-										Fist Name<span>*</span>
+										Fist Name
 									</p>
-									<input type="text" value="<%=firstName%>">
+									<input type="text" value="<%=firstName%>" >
 								</div>
 							</div>
 
@@ -63,7 +63,7 @@
 									<p>
 										Last Name<span>*</span>
 									</p>
-									<input type="text" value="<%=lastName%>">
+									<input type="text" value="<%=lastName%>" name="Name" required>
 								</div>
 							</div>
 						</div>
@@ -72,7 +72,9 @@
 								Address<span>*</span>
 							</p>
 							<input type="text" placeholder=" Address"
-								class="checkout__input__add" value="<%=u.getAddress()%>">
+								class="checkout__input__add" value="<%=u.getAddress()%>"
+								name="Address"
+								required>
 						</div>
 
 						<div class="row">
@@ -81,7 +83,7 @@
 									<p>
 										Phone<span>*</span>
 									</p>
-									<input type="text">
+									<input type="text" value="0<%=u.getPhone()%>" required name="Phone">
 								</div>
 							</div>
 							<div class="col-lg-6">
@@ -89,7 +91,7 @@
 									<p>
 										Email<span>*</span>
 									</p>
-									<input type="text" value="<%=u.getEmail()%>">
+									<input type="text" value="<%=u.getEmail()%>" required name="Email">
 								</div>
 							</div>
 						</div>
@@ -110,6 +112,7 @@
 								<%
 								List<CartItem> cart = (List<CartItem>) session.getAttribute("cart");
 								double total = 0.0;
+							
 								int i = 1;
 								for (CartItem cartItem : cart) {
 								%>
@@ -119,36 +122,35 @@
 								total += cartItem.getPrice() * cartItem.getQuantity();
 								i++;
 								%>
-
-
 								<%
 								}
+							
 								%>
 							</ul>
 							<ul class="checkout__total__all">
-								<!-- <li>Subtotal <span>$750.99</span></li> -->
+								
+												
 								<li>Total <span>$<%=total%></span></li>
 							</ul>
 
-							<div class="checkout__input__checkbox">
+							<!-- 		<div class="checkout__input__checkbox">
 								<label for="acc-or"> Create an account? <input
 									type="checkbox" id="acc-or"> <span class="checkmark"></span>
 								</label>
-							</div>
+							</div> -->
 
-							<div class="checkout__input__checkbox">
+							<!-- 		<div class="checkout__input__checkbox">
 								<label for="payment"> Check Payment <input
 									type="checkbox" id="payment"> <span class="checkmark"></span>
 								</label>
-							</div>
+							</div> -->
 							<div class="checkout__input__checkbox">
-								<label for="paypal"> Paypal <input type="checkbox"
-									id="paypal"> <span class="checkmark"></span>
+								<label for="paypal"> Payment on delivery <input
+									type="checkbox" id="paypal" required> <span
+									class="checkmark"></span><span>*</span>
 								</label>
 							</div>
-							<!-- <a href="order"> <input type="button" class="btn btn-primary"
-								value="PLACE ORDER" />
-							</a> -->
+
 							<button type="submit" class="site-btn">PLACE ORDER</button>
 						</div>
 					</div>

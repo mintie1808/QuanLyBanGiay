@@ -5,7 +5,7 @@
 	<div class="col p-md-0">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item"><a
-				href="./admin-home?page=user_management">Edit</a></li>
+				href="./admin-product">Edit</a></li>
 			<li class="breadcrumb-item active"><a href="./admin-home">Home</a></li>
 		</ol>
 	</div>
@@ -224,13 +224,16 @@
 											</td>
 											<td>${c}</td>
 											<td><img
-												src="img/product/${empty product.img ? 'product-1.jpg' : product.img}"
-												class="rounded-circle mr-3" alt="">
-												${product.productName} </a></td>
+												src="img/product/${empty product.img ? 'icon_website.png' : product.img}"
+												class="rounded-circle mr-3" alt="" style="height: 35px;"> 
+												<span class="truncate"> ${product.productName} </span>
+												 </a></td>
 											<td>${empty product.price ? 'Empty' : product.price}</td>
-											<td><span>${product.seotitle}</span></td>
+											<td><span class="truncate">${product.seotitle}</span></td>
 											<td>${empty product.color ? 'Empty' : product.color}</td>
-											<td>${empty product.description ? 'Empty' : product.description}</td>
+											<td ><span class="truncate"> ${empty product.description ? 'Empty' : product.description}
+											</span>
+											</td>
 											<td >${empty product.amount ? '0' : product.amount}</td>
 											<td class="td_ul_user-status">${empty product.sold ? '0' : product.sold}</td>
 											<td class="td_ul_user">
@@ -309,7 +312,7 @@
 					<div class="text-sl_img-ep" id="fileNameDisplay">No file
 						selected</div>
 					<div class="mt-text-sl_img-ep">
-						<input type="file" id="fileInput" name="fileInput" class="d-none"
+						<input type="file" id="fileInput" name="fileInputproduct" class="d-none"
 							value="${product.img }">
 						<button type="button" class="_btn-ep sl_btn">Select Image</button>
 					</div>
@@ -387,12 +390,12 @@
 					<textarea class="form-control" name="description"  id="exampleFormControlTextarea1"
 						rows="3">${product.description }</textarea>
 				</div>
-				<div class="row">
+<%-- 				<div class="row">
 					<label for="exampleFormControlTextarea1" class="form-label">Detail
 					</label>
-					<textarea class="form-control" name="detail" id="exampleFormControlTextarea1"
+					<textarea class="form-control" name="detail"
 						rows="3">${product.detail }</textarea>
-				</div>
+				</div> --%>
 			</div>
 
 			<div>
@@ -409,7 +412,7 @@
 				</c:choose>
 
 			</div>
-	</div>
 	</form>
+	</div>
 </div>
-</div>
+

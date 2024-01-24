@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!-- Hero Section Begin -->
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%><script
+	src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <script>
 	function redirectTo(url) {
 		window.location.href = url;
@@ -23,7 +24,6 @@
 			return false;
 		});
 	});
-
 </script>
 
 <section class="hero">
@@ -190,11 +190,13 @@
 						</div>
 						<div class="product__item__text">
 							<h6>${data.productName}</h6>
+							<h6>Amount - ${data.amount }</h6>
+							<h6>Sold - ${data.sold }</h6>
 							<form class="addToCartForm" action="shopcart" method="post">
 								<input type="hidden" name="productId" value="${data.productID}">
 								<input type="hidden" name="quantity" value="1"> <input
 									type="hidden" name="price" value="${data.price}">
-								<h5>$${data.price }</h5>
+								<h5 style="margin-bottom: 5px;">$${data.price }</h5>
 								<input class="btn btn-primary" type="submit" value="Add to Cart">
 							</form>
 						</div>

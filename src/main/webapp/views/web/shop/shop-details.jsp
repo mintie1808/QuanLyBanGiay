@@ -34,7 +34,7 @@
 				<div class="row">
 					<div class="col-lg-12">
 						<div class="product__details__breadcrumb">
-							<a href="./trang-chu">Home</a> <a href="./trang-chu?page=shop">Shop</a>
+							<a href="./trang-chu">Home</a> <a href="./shop">Shop</a>
 							<span>Product Details</span>
 						</div>
 					</div>
@@ -111,7 +111,7 @@
 							<!-- <h3>
 							$270.00 <span>70.00</span>
 						</h3> -->
-							<h3>${data.price}</h3>
+							<h3>$${data.price}</h3>
 							<p>${data.description}</p>
 							<!-- 						<div class="product__details__option">
 							<div class="product__details__option__size">

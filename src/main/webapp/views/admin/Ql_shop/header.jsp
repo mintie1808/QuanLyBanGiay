@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>${page }</title>
+<title translate="no">${page }</title>
 <link rel="icon" href="img/100-icon-cao_110447695.jpg"
 	type="image/x-icon">
 
@@ -334,7 +334,7 @@
 							<li><a href="./admin-product">Product</a></li>
 							<li><a href="./admin-Supplier">Supplier</a></li>
 						</ul>
-					<li><a class="has-arrow" href="javascript:void()"
+<!-- 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="icon-graph menu-icon"></i> <span
 							class="nav-text">Charts</span>
 					</a>
@@ -345,8 +345,8 @@
 							<li><a href="./chart-chartist.html">Chartist</a></li>
 							<li><a href="./chart-sparkline.html">Sparkline</a></li>
 							<li><a href="./chart-peity.html">Peity</a></li>
-						</ul></li>
-					<li class="nav-label">UI Components</li>
+						</ul></li> -->
+					<!-- <li class="nav-label">UI Components</li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="icon-grid menu-icon"></i><span
 							class="nav-text">UI Components</span>
@@ -368,19 +368,19 @@
 							<li><a href="./ui-progressbar.html">Progressbar</a></li>
 							<li><a href="./ui-tab.html">Tab</a></li>
 							<li><a href="./ui-typography.html">Typography</a></li>
-							<!-- </ul>
+							</ul>
                     </li>
                     <li>
                         <a class="has-arrow" href="javascript:void()" aria-expanded="false">
                             <i class="icon-layers menu-icon"></i><span class="nav-text">Components</span>
                         </a>
-                        <ul aria-expanded="false"> -->
+                        <ul aria-expanded="false">
 							<li><a href="./uc-nestedable.html">Nestedable</a></li>
 							<li><a href="./uc-noui-slider.html">Noui Slider</a></li>
 							<li><a href="./uc-sweetalert.html">Sweet Alert</a></li>
 							<li><a href="./uc-toastr.html">Toastr</a></li>
-						</ul></li>
-					<li><a href="widgets.html" aria-expanded="false"> <i
+						</ul></li> -->
+					<!-- <li><a href="widgets.html" aria-expanded="false"> <i
 							class="icon-badge menu-icon"></i><span class="nav-text">Widget</span>
 					</a></li>
 					<li class="nav-label">Forms</li>
@@ -394,8 +394,8 @@
 							<li><a href="./form-step.html">Step Form</a></li>
 							<li><a href="./form-editor.html">Editor</a></li>
 							<li><a href="./form-picker.html">Picker</a></li>
-						</ul></li>
-					<li class="nav-label">Table</li>
+						</ul></li> -->
+<!-- 					<li class="nav-label">Table</li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="icon-menu menu-icon"></i><span
 							class="nav-text">Table</span>
@@ -405,8 +405,8 @@
 									Table</a></li>
 							<li><a href="./table-datatable.html" aria-expanded="false">Data
 									Table</a></li>
-						</ul></li>
-					<li class="nav-label">Pages</li>
+						</ul></li> -->
+					<!-- <li class="nav-label">Pages</li>
 					<li><a class="has-arrow" href="javascript:void()"
 						aria-expanded="false"> <i class="icon-notebook menu-icon"></i><span
 							class="nav-text">Pages</span>
@@ -424,7 +424,7 @@
 									<li><a href="./page-error-500.html">Error 500</a></li>
 									<li><a href="./page-error-503.html">Error 503</a></li>
 								</ul></li>
-						</ul></li>
+						</ul></li> -->
 				</ul>
 			</div>
 		</div>

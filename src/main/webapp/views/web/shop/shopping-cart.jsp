@@ -133,7 +133,7 @@
 								</td>
 								<td class="quantity__item">
 									<div class="quantity">
-										<input id="quantityInputC" name="quantity"
+										<input id="quantityInputC" style="border: 0;" name="quantity"
 											class="input_quantity" min="1"
 											max="<%=cartItem.getProduct().getAmount()%>" type="number"
 											value="<%=cartItem.getQuantity()%>"

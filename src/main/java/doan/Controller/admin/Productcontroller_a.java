@@ -21,6 +21,7 @@ import doan.DAO.SupplierDAO;
 import doan.model.CategoryModel;
 import doan.model.ProductModel;
 import doan.model.SupplierModel;
+import doan.utils.AccessUtils;
 
 
 /**
@@ -57,14 +58,15 @@ public class Productcontroller_a extends HttpServlet {
 		int productPrice = Integer.parseInt(request.getParameter("productPrice"));
 		String color = request.getParameter("color");
 		String description = request.getParameter("description");
-		String detail = request.getParameter("detail");
+//		String detail = request.getParameter("detail");
+//		System.out.println(detail);
 		int amount = Integer.parseInt(request.getParameter("amount"));
 		// Lấy thông tin từ các ô select
 		int category_id = Integer.parseInt(request.getParameter("category"));
 		int supplierID = Integer.parseInt(request.getParameter("supplier"));
 
 		ProductModel Product = new ProductModel();
-		Part filePart = request.getPart("fileInput");
+		Part filePart = request.getPart("fileInputproduct");
 		String imgPath = "";
 		if (filePart != null && filePart.getSize() > 0) {
 			String fileName = Paths.get(filePart.getSubmittedFileName()).getFileName().toString();
@@ -77,13 +79,12 @@ public class Productcontroller_a extends HttpServlet {
 			filePart.write(uploadPath + File.separator + fileName);
 		}
 		Product.setImg(imgPath);
-
 		Product.setProductName(productName);
 		Product.setPrice(productPrice);
 		Product.setSeotitle(removeAccentsAndConvertToLowerCase(productName));
 		Product.setColor(color);
 		Product.setDescription(description);
-		Product.setDetail(detail);
+//		Product.setDetail(detail);
 		Product.setAmount(amount);
 		Product.setCategory_id(category_id);
 		Product.setSupplierID(supplierID);
@@ -92,6 +93,7 @@ public class Productcontroller_a extends HttpServlet {
 		Product.setHot(true);
 		Product.setSALE(true);
 		Product.setSold(0);
+		
 		return Product;
 	}
 
@@ -110,9 +112,9 @@ public class Productcontroller_a extends HttpServlet {
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		/*
-		 * if (!AccessUtils.checkUserRole(request, response)) { return; }
-		 */
+		if(!AccessUtils.checkUserRole(request, response)){
+			return;
+		}
 		SupplierDAO supdao = new SupplierDAO();
 		ProductDAO dao = new ProductDAO();
 

@@ -19,6 +19,7 @@ import doan.DAO.RoleDAO;
 import doan.DAO.UserDAO;
 import doan.model.RoleModel;
 import doan.model.Usermodel;
+import doan.utils.AccessUtils;
 import doan.utils.PasswordHashing;
 
 /**
@@ -103,6 +104,9 @@ public class Usercontroller extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		if(!AccessUtils.checkUserRole(request, response)){
+			return;
+		}
 		RoleDAO roledao = new RoleDAO();
 		List<RoleModel> listrole = roledao.findAll();
 		request.setAttribute("listrole", listrole);

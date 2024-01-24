@@ -2,6 +2,7 @@ package doan.DAO;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
@@ -467,43 +468,74 @@ public class ProductDAO {
 
 	}
 
-	public void updateProduct(int product, ProductModel Product) {
-		EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
-		EntityManager entityManager = emf.createEntityManager();
-		EntityTransaction transaction = null;
+	public void updateProduct(int productId, ProductModel updatedProduct) {
+	    EntityManagerFactory emf = Persistence.createEntityManagerFactory("Sql_web_ban__quan_ao");
+	    EntityManager entityManager = emf.createEntityManager();
+	    EntityTransaction transaction = null;
 
-		try {
-			transaction = entityManager.getTransaction();
-			transaction.begin();
+	    try {
+	        transaction = entityManager.getTransaction();
+	        transaction.begin();
 
-			ProductModel existingProduct = entityManager.find(ProductModel.class, product);
+	        ProductModel existingProduct = entityManager.find(ProductModel.class, productId);
 
-			if (existingProduct != null) {
-				// Cập nhật thông tin sản phẩm từ updatedProduct vào existingProduct
-				existingProduct.setProductName(Product.getProductName());
-				existingProduct.setPrice(Product.getPrice());
-				existingProduct.setSeotitle(Product.getSeotitle());
-				existingProduct.setColor(Product.getColor());
-				existingProduct.setDescription(Product.getDescription());
-				existingProduct.setAmount(Product.getAmount());
-				existingProduct.setCategory_id(Product.getCategory_id());
-				existingProduct.setSupplierID(Product.getSupplierID());
-				existingProduct.setImg(Product.getImg());
+	        if (existingProduct != null) {
+	            // Kiểm tra và cập nhật các trường
+	            if (updatedProduct.getProductName() != null && !updatedProduct.getProductName().isEmpty()
+	                    && !Objects.equals(updatedProduct.getProductName(), existingProduct.getProductName())) {
+	                existingProduct.setProductName(updatedProduct.getProductName());
+	            }
 
-				// Kích hoạt cơ chế tự động cập nhật của Hibernate
-				entityManager.merge(existingProduct);
-			}
+	            if (updatedProduct.getPrice() != existingProduct.getPrice()) {
+	                existingProduct.setPrice(updatedProduct.getPrice());
+	            }
 
-			transaction.commit();
-		} catch (Exception e) {
-			if (transaction != null && transaction.isActive()) {
-				// Hủy thao tác khi có ngoại lệ
-				transaction.rollback();
-			}
-			e.printStackTrace();
-		} finally {
-			entityManager.close();
-		}
+	            if (updatedProduct.getSeotitle() != null && !updatedProduct.getSeotitle().isEmpty()
+	                    && !Objects.equals(updatedProduct.getSeotitle(), existingProduct.getSeotitle())) {
+	                existingProduct.setSeotitle(updatedProduct.getSeotitle());
+	            }
+
+	            if (updatedProduct.getColor() != null && !updatedProduct.getColor().isEmpty()
+	                    && !Objects.equals(updatedProduct.getColor(), existingProduct.getColor())) {
+	                existingProduct.setColor(updatedProduct.getColor());
+	            }
+
+	            if (updatedProduct.getDescription() != null && !updatedProduct.getDescription().isEmpty()
+	                    && !Objects.equals(updatedProduct.getDescription(), existingProduct.getDescription())) {
+	                existingProduct.setDescription(updatedProduct.getDescription());
+	            }
+
+	            if (updatedProduct.getAmount() != existingProduct.getAmount()) {
+	                existingProduct.setAmount(updatedProduct.getAmount());
+	            }
+
+	            if (updatedProduct.getCategory_id() != existingProduct.getCategory_id()) {
+	                existingProduct.setCategory_id(updatedProduct.getCategory_id());
+	            }
+
+	            if (updatedProduct.getSupplierID() != existingProduct.getSupplierID()) {
+	                existingProduct.setSupplierID(updatedProduct.getSupplierID());
+	            }
+
+	            if (updatedProduct.getImg() != null && !updatedProduct.getImg().isEmpty()
+	                    && !Objects.equals(updatedProduct.getImg(), existingProduct.getImg())) {
+	                existingProduct.setImg(updatedProduct.getImg());
+	            }
+
+	            // Kích hoạt cơ chế tự động cập nhật của Hibernate
+	            entityManager.merge(existingProduct);
+	        }
+
+	        transaction.commit();
+	    } catch (Exception e) {
+	        if (transaction != null && transaction.isActive()) {
+	            // Hủy thao tác khi có ngoại lệ
+	            transaction.rollback();
+	        }
+	        e.printStackTrace();
+	    } finally {
+	        entityManager.close();
+	    }
 	}
 
 	public void deleteById(int id) {
